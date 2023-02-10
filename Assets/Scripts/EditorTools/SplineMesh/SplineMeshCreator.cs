@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace.EditorTools.Splines;
 using Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -43,10 +44,7 @@ public class SplineMeshCreator : MonoBehaviour {
 
         for (int i = 0; i < spline.count - 1; i++) {
             for (float t = step; t <= 1; t += step) {
-                var segmentEnd = Bezier(
-                    spline.points[i].Position, spline.points[i].guide,
-                    spline.points[i + 1].tailGuide, spline.points[i + 1].Position,
-                    t);
+                var segmentEnd = spline.Bezier(i, t);
                 AddSquareVertices(segmentEnd, segmentEnd - segmentStart, vertices, RoadWidth);
                 segmentStart = segmentEnd;
             }
@@ -101,9 +99,5 @@ public class SplineMeshCreator : MonoBehaviour {
 
     private Vector3 Bezier(Vector3 start, Vector3 guide, Vector3 tailGuide, Vector3 end, float t) {
         return (MathF.Pow(1 - t, 3) * start + (3 * Mathf.Pow(1 - t, 2) * t * guide + 3 * (1 - t) * t * t * tailGuide + Mathf.Pow(t, 3) * end));
-    }
-
-    private Vector3 Bezier(int segmentIndex, float t) {
-        
     }
 }
