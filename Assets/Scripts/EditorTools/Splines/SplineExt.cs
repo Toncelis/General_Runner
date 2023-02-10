@@ -10,7 +10,7 @@ namespace DefaultNamespace.EditorTools.Splines {
         public static Vector3 Bezier(this Spline spline, int segmentIndex, float t) {
             return Bezier(
                 spline.points[segmentIndex].Position, spline.points[segmentIndex].guide,
-                spline.points[segmentIndex+1].tailGuide, spline.points[segmentIndex].Position,
+                spline.points[segmentIndex+1].tailGuide, spline.points[segmentIndex+1].Position,
                 t);
         }
     }
