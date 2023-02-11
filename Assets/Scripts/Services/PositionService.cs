@@ -86,8 +86,8 @@ namespace Services {
 
         public Vector3 ForwardVector {
             get {
-                Vector3 localDirection = _segmentEnd - _segmentStart;
-                return localDirection;
+                Vector3 direction = _segmentEnd - _segmentStart;
+                return direction;
             }
         }
     }
