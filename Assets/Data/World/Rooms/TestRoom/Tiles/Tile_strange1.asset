@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a701ba4af6248feb6f529ac732a8eee, type: 3}
-  m_Name: Tile_Line_Test
+  m_Name: Tile_strange1
   m_EditorClassIdentifier: 
   NextTileOptions:
     objects:
     - {fileID: 11400000, guid: 7a3b62194348caf49a297a279592e8b5, type: 2}
-    - {fileID: 11400000}
+    - {fileID: 11400000, guid: 29703e84029550549ad6d9624a6ef9b3, type: 2}
     - {fileID: 11400000, guid: 4df0c5152befd9a44af791f87bd93e21, type: 2}
-    - {fileID: 11400000, guid: ea72cc75e416be048939de47764f8eef, type: 2}
+    - {fileID: 11400000}
     - {fileID: 11400000, guid: bcd0634c2bcdb544aafb06be58c27fe3, type: 2}
     - {fileID: 11400000, guid: 0c274744420079f4cbff4b9bc17bb051, type: 2}
     weights:
@@ -30,5 +30,5 @@ MonoBehaviour:
   TrackObjectOptions:
     objects: []
     weights: []
-  TilePrefab: {fileID: 4757916771847770609, guid: c2914ff65d4a27548955360d5799f130,
+  TilePrefab: {fileID: 5855185913261741226, guid: 8e9b4341102f11b45a6ea9c142ff030d,
     type: 3}

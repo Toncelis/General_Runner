@@ -12,7 +12,7 @@ using UnityEngine;
 [RequireComponent(typeof(ISplineHolder))]
 public class SplineMeshCreator : MonoBehaviour {
     protected Spline spline;
-    public int Density;
+    public int Density = 20;
 
     private void OnValidate() {
         spline = new Spline(GetComponent<ISplineHolder>().Spline);
