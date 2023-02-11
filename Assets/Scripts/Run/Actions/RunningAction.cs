@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using Extensions;
+using Services;
 using UnityEngine;
 
 namespace DefaultNamespace.Run.Actions {
@@ -23,10 +25,11 @@ namespace DefaultNamespace.Run.Actions {
 
         protected override IEnumerator ActionRoutine() {
             _jumpTime = Time.timeSinceLevelLoad;
+            var positionService = ServiceLibrary.GetService<PositionService>();
+            
             while (true) {
-                var desiredSpeed = CalculateDesiredSpeed();
+                var desiredSpeed = CalculateDesiredSpeed(positionService.ForwardVector.XZProjection().normalized);
                 currentSpeed += (desiredSpeed - currentSpeed).WithY(0).normalized * Acceleration * Time.deltaTime;
-                Debug.Log($"'desired speed = {desiredSpeed} _ current speed = {currentSpeed}");
                 
                 UpdateGroundedState();
                 UpdateVerticalSpeed(ref currentSpeed);
@@ -34,19 +37,19 @@ namespace DefaultNamespace.Run.Actions {
                 
                 character.Animator.SetFloat(_runningSpeed, currentSpeed.WithY(0).magnitude);
                 character.CharacterController.Move(currentSpeed * Time.deltaTime);
-                
+                positionService.ProcessNewPosition(character.Transform.position);
                 yield return null;
             }
         }
 
-        private Vector3 CalculateDesiredSpeed() {
+        private Vector3 CalculateDesiredSpeed(Vector2 forwardVector) {
             if (Input.GetKey(KeyCode.S)) {
                 return Vector3.zero;
             }
             
             var forwardSpeed = (Input.GetKey(KeyCode.W) ? ChargingSpeed : RunningSpeed) * Vector2.up;
             var sideSpeed = (Input.GetKey(KeyCode.D) ? LateralSpeed : 0) * Vector2.right + (Input.GetKey(KeyCode.A) ? LateralSpeed : 0) * Vector2.left;
-            return (forwardSpeed + sideSpeed).ToXZByDirection(Vector2.up);
+            return (forwardSpeed + sideSpeed).ToXZByDirection(forwardVector);
         }
 
         private void UpdateGroundedState() {

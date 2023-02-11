@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace World.Controller {
     public class WorldGeneration : MonoBehaviour {
-        public SurroundingsGenerationSettings GenerationSettings;
+        public RoomSettings GenerationSettings;
         public float TrackLength;
         private Vector3 _roadEnd = Vector3.zero;
         private float _trackIdleSteps = 3f;
@@ -14,6 +14,7 @@ namespace World.Controller {
         public ScriptableSignal OnTileCenterReached;
 
         private GameObject oldRoadTile, currentRoadTile;
+        /*
         private void GenerateRoad() {
             if (oldRoadTile != null) {
                 Destroy(oldRoadTile);
@@ -81,5 +82,6 @@ namespace World.Controller {
         private void OnDisable() {
             OnTileCenterReached.UnregisterResponse(GenerateRoad);
         }
+        */
     }
 }

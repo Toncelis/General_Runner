@@ -21,7 +21,7 @@ namespace DefaultNamespace.Managers {
 
         public CharacterAction StandardAction;
 
-        public void Start() {
+        public void StartMovement() {
             StandardAction.RunAction(Vector3.zero, this, null);
         }
 

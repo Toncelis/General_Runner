@@ -1,22 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace.EditorTools;
 using DefaultNamespace.EditorTools.Splines;
+using DefaultNamespace.Interfaces.DataAccessors;
 using Extensions;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
+[RequireComponent(typeof(ISplineHolder))]
 public class SplineMeshCreator : MonoBehaviour {
-    public SplineCreator SplineCreator;
-    public Material RoadMaterial;
+    protected Spline spline;
     public int Density;
-    public float RoadWidth;
-    
+
+    private void OnValidate() {
+        spline = new Spline(GetComponent<ISplineHolder>().Spline);
+    }
+
     [Button]
     public void GenerateMesh(float leftEdgeOffset, float rightEdgeOffset, float bottomEdgeOffset, float topEdgeOffset, MeshFilter meshFilter) {
-        var spline = SplineCreator.Spline;
         if (spline.count < 2) {
             return;
         }
@@ -37,15 +40,16 @@ public class SplineMeshCreator : MonoBehaviour {
     [Button]
     public GameObject GenerateChildMesh(string childName, float leftEdgeOffset, float rightEdgeOffset, float bottomEdgeOffset, float topEdgeOffset) {
         MeshFilter meshFilter;
-        
+
         for (int i = 0; i < transform.childCount; i++) {
             var child = transform.GetChild(i);
             if (child.name != childName) {
                 continue;
             }
-            
+
             meshFilter = child.GetOrAddComponent<MeshFilter>();
             GenerateMesh(leftEdgeOffset, rightEdgeOffset, bottomEdgeOffset, topEdgeOffset, meshFilter);
+            child.gameObject.AddComponent<SerializeMesh>();
             return child.gameObject;
         }
 
@@ -53,25 +57,9 @@ public class SplineMeshCreator : MonoBehaviour {
         meshHolder.transform.parent = transform;
         meshHolder.transform.localPosition = Vector3.zero;
         meshFilter = meshHolder.AddComponent<MeshFilter>();
+        meshHolder.AddComponent<SerializeMesh>();
         GenerateMesh(leftEdgeOffset, rightEdgeOffset, bottomEdgeOffset, topEdgeOffset, meshFilter);
         return meshHolder;
-    }
-
-    [Button]
-    public void GenerateRoadWithWalls(float roadWidth, float wallWidth, float wallHeight) {
-        float roadHalfWidth = roadWidth/2;
-        var road = GenerateChildMesh("Road", -roadHalfWidth, roadHalfWidth, -2, 0);
-        road.tag = "ground";
-        road.GetOrAddComponent<MeshCollider>();
-        road.GetOrAddComponent<MeshRenderer>();
-        var leftWall = GenerateChildMesh("LeftWall", -wallWidth-roadHalfWidth, -roadHalfWidth, -2, wallHeight);
-        leftWall.tag = "Wall";
-        leftWall.GetOrAddComponent<MeshCollider>();
-        leftWall.GetOrAddComponent<MeshRenderer>();
-        var rightWall = GenerateChildMesh("RightWall", roadHalfWidth, wallWidth+roadHalfWidth, -2, wallHeight);
-        rightWall.tag = "Wall";
-        rightWall.GetOrAddComponent<MeshCollider>();
-        rightWall.GetOrAddComponent<MeshRenderer>();
     }
 
     private Vector3[] GenerateVertices(Spline spline, float leftEdgeOffset, float rightEdgeOffset, float bottomEdgeOffset, float topEdgeOffset) {

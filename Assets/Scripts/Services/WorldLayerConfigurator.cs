@@ -17,7 +17,7 @@ namespace DefaultNamespace.Services {
             SceneManager.SetActiveScene(newLayerScene);
             
             var layerManagerHolder = new GameObject($"{layerType}_LevelManagerHolder");
-            layerManagerHolder.AddComponent<WorldLayerManager>();
+            //layerManagerHolder.AddComponent<WorldLayerManager>();
 
             SceneManager.SetActiveScene(activeScene);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using UnityEngine;
 
 namespace DefaultNamespace.EditorTools.Splines {
@@ -12,6 +13,20 @@ namespace DefaultNamespace.EditorTools.Splines {
                 spline.points[segmentIndex].Position, spline.points[segmentIndex].guide,
                 spline.points[segmentIndex+1].tailGuide, spline.points[segmentIndex+1].Position,
                 t);
+        }
+
+        public static void CopyFrom(this Spline spline, Spline oldSpline) {
+            spline.points.Clear();
+            foreach (var point in oldSpline.points) {
+                spline.points.Add(new SplinePoint(point));
+            }
+        }
+
+        public static void CopyTo(this Spline spline, Spline newSpline) {
+            newSpline.points.Clear();
+            foreach (var point in spline.points) {
+                newSpline.points.Add(new SplinePoint(point));
+            }
         }
     }
 }

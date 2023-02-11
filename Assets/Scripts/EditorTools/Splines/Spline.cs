@@ -12,7 +12,7 @@ public class Spline {
 
     public Spline() {
         points = new List<SplinePoint> {
-            new(Vector3.zero, Vector3.forward)
+            new()
         };
     }
 
@@ -25,6 +25,13 @@ public class Spline {
         }
         
         points.Add(new (position, (position - points.Last().guide).normalized));
+    }
+
+    public Spline(Spline otherSpline) {
+        points = new();
+        foreach (var point in otherSpline.points) {
+            points.Add(new SplinePoint(point));
+        }
     }
 }
 
@@ -43,8 +50,18 @@ public class SplinePoint {
         set => Direction = Position - value;
     }
 
+    public SplinePoint() {
+        Position = Vector3.zero;
+        Direction = Vector3.forward;
+    }
+    
     public SplinePoint(Vector3 newPosition, Vector3 newDirection) {
         Position = newPosition;
         Direction = newDirection;
+    }
+
+    public SplinePoint(SplinePoint oldPoint) {
+        Position = oldPoint.Position;
+        Direction = oldPoint.Direction;
     }
 }
