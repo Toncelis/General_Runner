@@ -6,6 +6,10 @@ namespace Extensions {
             return new Vector3(vector.x, value, vector.z);
         }
 
+        public static Vector3 WithLength(this Vector3 vector, float length) {
+            return vector.normalized * length;
+        }
+
         public static Vector2 XZProjection(this Vector3 vector) {
             return new Vector2(vector.x, vector.z);
         }

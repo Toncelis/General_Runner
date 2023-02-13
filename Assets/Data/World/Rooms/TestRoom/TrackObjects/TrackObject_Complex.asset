@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f8b22e8064b478da4d82e8b6f1927f7, type: 3}
+  m_Name: TrackObject_Complex
+  m_EditorClassIdentifier: 
+  complex: 1
+  prefab: {fileID: 0}
+  objectParts:
+  - {fileID: 11400000, guid: 4ac7ac5b6e94b6248bc19609c9003f8e, type: 2}
+  - {fileID: 11400000, guid: 7fa45f5d50723fc4eb97db0bdc1b548d, type: 2}
+  length: 4

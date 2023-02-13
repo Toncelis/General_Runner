@@ -35,6 +35,7 @@ namespace DefaultNamespace.Managers {
         private void GenerateTile(TileConfig tileConfig, Vector3 position, Vector3 flatDirection) {
             _lastTileIndex++;
             
+            Debug.Log("loading new tile");
             var tileObject = Instantiate(tileConfig.prefab, parent : transform);
             tileObject.name = $"{tileConfig.name}_{_lastTileIndex}";
             tileObject.transform.position = position;
@@ -44,9 +45,6 @@ namespace DefaultNamespace.Managers {
             tileView.Setup(tileConfig);
             
             _generatedTiles.Add(_lastTileIndex, tileObject.GetComponent<TileView>());
-            
-            
-            Debug.Log("loading new tile", tileObject);
         }
 
         public void RemoveTile(int tileIndex) {

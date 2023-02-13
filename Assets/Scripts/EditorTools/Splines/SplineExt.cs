@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using UnityEngine;
 
 namespace DefaultNamespace.EditorTools.Splines {
@@ -8,12 +7,25 @@ namespace DefaultNamespace.EditorTools.Splines {
             return (MathF.Pow(1 - t, 3) * start + (3 * Mathf.Pow(1 - t, 2) * t * guide + 3 * (1 - t) * t * t * tailGuide + Mathf.Pow(t, 3) * end));
         }
 
-        public static Vector3 Bezier(this Spline spline, int segmentIndex, float t) {
+        public static Vector3 Bezier(this Spline spline, int subcurveIndex, float partition) {
             return Bezier(
-                spline.points[segmentIndex].Position, spline.points[segmentIndex].guide,
-                spline.points[segmentIndex+1].tailGuide, spline.points[segmentIndex+1].Position,
-                t);
+                spline.points[subcurveIndex].Position, spline.points[subcurveIndex].guide,
+                spline.points[subcurveIndex + 1].tailGuide, spline.points[subcurveIndex + 1].Position,
+                partition);
         }
+
+        public static Vector3 GetSegmentStart(this Spline spline, int subcurveIndex, int segmentIndex, int density) {
+            return spline.Bezier(subcurveIndex, (float)segmentIndex / density);
+        }
+        
+        public static Vector3 GetSegmentEnd(this Spline spline, int subcurveIndex, int segmentIndex, int density) {
+            return spline.Bezier(subcurveIndex, (float)(segmentIndex + 1) / density);
+        }
+
+        public static Vector3 GetSegmentDirection(this Spline spline, int subcurveIndex, int segmentIndex, int density) {
+            return (spline.GetSegmentEnd(subcurveIndex, segmentIndex, density) - spline.GetSegmentStart(subcurveIndex, segmentIndex, density)).normalized;
+        }
+
 
         public static void CopyFrom(this Spline spline, Spline oldSpline) {
             spline.points.Clear();

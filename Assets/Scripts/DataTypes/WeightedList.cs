@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace DataTypes {
     [Serializable]
-    public class WeightedList <T> {
+    public class WeightedList<T> {
         [SerializeField]
         private List<T> objects;
         [SerializeField]
@@ -25,10 +25,10 @@ namespace DataTypes {
             }
 
             for (int i = 0; i < objCount - weightsCount; i++) {
-                objects.RemoveAt(objects.Count-1);
+                objects.RemoveAt(objects.Count - 1);
             }
         }
-        
+
         public void Add(T obj, float weight) {
             Validate();
             objects.Add(obj);
@@ -40,7 +40,7 @@ namespace DataTypes {
             if (objects == null || objects.Count == 0) {
                 return default;
             }
-            
+
             float totalWeight = 0;
             foreach (var w in weights) {
                 totalWeight += w;
@@ -58,7 +58,7 @@ namespace DataTypes {
             return objects.Last();
         }
 
-        public T GetRandomObjectWithCondition(Predicate<T> condition) {
+        public bool GetRandomObjectWithCondition(Predicate<T> condition, out T obj) {
             WeightedList<T> listUnderConditions = new();
             Validate();
             for (int i = 0; i < Count; i++) {
@@ -67,7 +67,13 @@ namespace DataTypes {
                 }
             }
 
-            return listUnderConditions.GetRandomObject();
+            if (listUnderConditions.Count == 0) {
+                obj = default;
+                return false;
+            }
+            
+            obj = listUnderConditions.GetRandomObject();
+            return true;
         }
     }
 }
