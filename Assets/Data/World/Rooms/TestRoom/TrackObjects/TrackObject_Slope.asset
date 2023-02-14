@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: TrackObject_Slope
   m_EditorClassIdentifier: 
   complex: 0
-  prefab: {fileID: 4737690732489999276, guid: 749a0d974453041479a4abe64c5c196c, type: 3}
+  prefab: {fileID: 4066813964139172160, guid: 7745d26c09ce15042b6608c2e54ac076, type: 3}
   objectParts: []
   length: 9
