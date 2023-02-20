@@ -7,5 +7,10 @@ namespace DefaultNamespace.Interfaces.Character {
         public Animator Animator { get; }
 
         public float forwardVelocity { get; }
+        
+        
+        public Transform currentSpeedArrow { get; }
+        public Transform normalArrow { get; }
+        public Transform forwardArrow { get; }
     }
 }

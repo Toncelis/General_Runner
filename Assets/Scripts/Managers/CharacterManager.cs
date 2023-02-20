@@ -36,5 +36,14 @@ namespace DefaultNamespace.Managers {
                 OnTileCenterReached.Fire();
             }
         }
+
+        
+        public Transform _currentSpeedArrow;
+        public Transform _normalArrow;
+        public Transform _forwardArrow;
+        
+        public Transform currentSpeedArrow => _currentSpeedArrow;
+        public Transform normalArrow => _normalArrow;
+        public Transform forwardArrow => _forwardArrow;
     }
 }

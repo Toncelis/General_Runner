@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
+﻿using System.Collections;
 using Extensions;
 using Services;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 namespace DefaultNamespace.Run.Actions {
     [CreateAssetMenu(menuName = "Action/Run", order = 0, fileName = "CharacterRunAction")]
     public class RunningAction : CharacterAction {
         public float G = 9.873f;
-        private const float JUMPING_START_TIME = 0.75f;
+        private const float JUMPING_START_TIME = 0.1f;
 
         public float RunningSpeed;
         public float ChargingSpeed;
@@ -24,38 +25,58 @@ namespace DefaultNamespace.Run.Actions {
         private static readonly int _runningSpeed = Animator.StringToHash("RunningSpeed");
         private static readonly int _grounded = Animator.StringToHash("Grounded");
 
+        private RaycastHit groundHit;
+        private PositionService PositionService => ServiceLibrary.GetService<PositionService>();
+
         protected override IEnumerator ActionRoutine() {
             _jumpTime = Time.timeSinceLevelLoad;
-            var positionService = ServiceLibrary.GetService<PositionService>();
 
             while (true) {
-                var desiredSpeed = CalculateDesiredSpeed(positionService.ForwardVector.XZProjection().normalized);
-                currentSpeed += (desiredSpeed - currentSpeed).WithY(0).normalized * Acceleration * Time.deltaTime;
-
-                UpdateGroundedState();
-                UpdateVerticalSpeed(ref currentSpeed);
+                var desiredSpeed = CalculateDesiredSpeed(PositionService.ForwardVector.XZProjection().normalized);
+                
                 UpdateCharacterRotationAndAnimation();
+                UpdateGroundedState();
 
-                character.Animator.SetFloat(_runningSpeed, currentSpeed.WithY(0).magnitude);
+                if (_isGrounded && !jumping) {
+                    if (Input.GetKeyDown(KeyCode.Space)) {
+                        currentSpeed = desiredSpeed.WithY(JumpSpeed);
+                        character.Animator.SetTrigger("Jump");
+                        _jumpTime = Time.timeSinceLevelLoad;
+                    } else {    
+                        currentSpeed = Quaternion.FromToRotation(PositionService.ForwardVector.WithY(0), mainMovementDirection) * desiredSpeed - groundNormal * 2;
+                    }
+                } else {
+                    currentSpeed = desiredSpeed.WithY(currentSpeed.y - G * Time.deltaTime);
+                }
+
+                Debug.Log($"current speed : {currentSpeed}");
+
+                character.Animator.SetFloat(_runningSpeed, desiredSpeed.magnitude);
                 character.CharacterController.Move(currentSpeed * Time.deltaTime);
-                positionService.ProcessNewPosition(character.Transform.position);
+                PositionService.ProcessNewPosition(character.Transform.position);
+                
+                character.currentSpeedArrow.forward = currentSpeed;
+                character.currentSpeedArrow.localScale = currentSpeed.magnitude * Vector3.one;
+                character.normalArrow.forward = groundNormal;
+                character.forwardArrow.forward = mainMovementDirection;
+                
                 yield return null;
             }
         }
 
         private Vector3 CalculateDesiredSpeed(Vector2 forwardVector) {
-            if (Input.GetKey(KeyCode.S)) {
-                return Vector3.zero;
-            }
-
-            var forwardSpeed = (Input.GetKey(KeyCode.W) ? ChargingSpeed : RunningSpeed) * Vector2.up;
-            var sideSpeed = (Input.GetKey(KeyCode.D) ? LateralSpeed : 0) * Vector2.right + (Input.GetKey(KeyCode.A) ? LateralSpeed : 0) * Vector2.left;
-            return (forwardSpeed + sideSpeed).ToXZByDirection(forwardVector);
+            var forwardSpeed = (Input.GetKey(KeyCode.W) ? 4 : 2 + (Input.GetKey(KeyCode.S) ? -1 : 0)) * Vector2.up;
+            var sideSpeed = (Input.GetKey(KeyCode.D) ? 2 : 0) * Vector2.right + (Input.GetKey(KeyCode.A) ? 2 : 0) * Vector2.left;
+            var speed = (forwardSpeed + sideSpeed).normalized * RunningSpeed;
+            return speed.ToXZByDirection(forwardVector);
         }
 
         private void UpdateGroundedState() {
             var isGrounded = IsGrounded();
             if (isGrounded != _isGrounded) {
+                if (isGrounded) {
+                    currentSpeed = currentSpeed.WithY(Mathf.Max(-0.1f, currentSpeed.y));
+                }
                 _isGrounded = isGrounded;
                 character.Animator.SetBool(_grounded, _isGrounded);
             }
@@ -67,22 +88,23 @@ namespace DefaultNamespace.Run.Actions {
             if (positionDelta.sqrMagnitude > 0) {
                 character.Transform.forward = positionDelta;
             }
+
+            //      currentSpeed = (position - lastFramePosition)/Time.deltaTime;
             lastFramePosition = position;
         }
 
-        private void UpdateVerticalSpeed(ref Vector3 speed) {
-            if (_isGrounded && (Time.timeSinceLevelLoad - _jumpTime) > JUMPING_START_TIME && Input.GetKey(KeyCode.Space)) {
-                speed = speed.WithY(JumpSpeed);
-                _jumpTime = Time.timeSinceLevelLoad;
-                character.Animator.SetTrigger("Jump");
-            } else {
-                speed += Vector3.down * G * Time.deltaTime;
-            }
+        private bool IsGrounded() {
+            var position = character.CharacterController.center + character.CharacterController.transform.position;
+            if (!Physics.SphereCast(position, character.CharacterController.radius, Vector3.down, out groundHit, character.CharacterController.height / 2 + 0.1f)) {
+                return false;
+                
+            };
+            return Vector3.Project(currentSpeed, groundNormal).normalized != groundNormal;
         }
 
-        private bool IsGrounded() {
-            var position = character.CharacterController.center + character.CharacterController.transform.position + (character.CharacterController.height / 2 + 0.1f) * Vector3.down;
-            return Physics.OverlapSphere(position, character.CharacterController.radius).Any(collider => collider.CompareTag("ground"));
-        }
+        private Vector3 groundNormal => _isGrounded ? groundHit.normal : Vector3.up;
+        private Vector3 mainMovementDirection => Vector3.ProjectOnPlane(PositionService.ForwardVector, groundNormal).normalized;
+
+        private bool jumping => Time.timeSinceLevelLoad - _jumpTime < JUMPING_START_TIME;
     }
 }
