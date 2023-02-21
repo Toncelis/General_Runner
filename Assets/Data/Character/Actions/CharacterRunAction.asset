@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CharacterRunAction
   m_EditorClassIdentifier: 
   G: 9.873
-  RunningSpeed: 6
+  RunningSpeed: 6.5
   ChargingSpeed: 12
   LateralSpeed: 4
   Acceleration: 6

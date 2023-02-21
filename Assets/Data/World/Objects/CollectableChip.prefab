@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7496750699754621976}
   - component: {fileID: 3510197270174041632}
   - component: {fileID: 3616306735873663542}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CollectableChip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,6 +169,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chip
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4d416e120c41d4b4b87b66acad6a26f1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

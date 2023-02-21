@@ -73,6 +73,7 @@ namespace DefaultNamespace.Run.Actions {
 
         private void UpdateGroundedState() {
             var isGrounded = IsGrounded();
+            Debug.Log($"is grounded : {isGrounded}");
             if (isGrounded != _isGrounded) {
                 if (isGrounded) {
                     currentSpeed = currentSpeed.WithY(Mathf.Max(-0.1f, currentSpeed.y));
@@ -95,14 +96,18 @@ namespace DefaultNamespace.Run.Actions {
 
         private bool IsGrounded() {
             var position = character.CharacterController.center + character.CharacterController.transform.position;
-            if (!Physics.SphereCast(position, character.CharacterController.radius, Vector3.down, out groundHit, character.CharacterController.height / 2 + 0.1f)) {
+            if (!Physics.SphereCast(position, character.CharacterController.radius-0.01f, Vector3.down, out groundHit, character.CharacterController.height / 2 + 0.1f, 1<<LayerMask.NameToLayer("Default"))) {
                 return false;
-                
             };
+            Debug.Log($"ground is {groundHit.transform.name}", groundHit.transform);
+
+            if (!groundHit.collider.CompareTag("ground")) {
+                return false;
+            }
             return Vector3.Project(currentSpeed, groundNormal).normalized != groundNormal;
         }
 
-        private Vector3 groundNormal => _isGrounded ? groundHit.normal : Vector3.up;
+        private Vector3 groundNormal => _isGrounded ? groundHit.GetCorrectNormalForSphere(Vector3.down) : Vector3.up;
         private Vector3 mainMovementDirection => Vector3.ProjectOnPlane(PositionService.ForwardVector, groundNormal).normalized;
 
         private bool jumping => Time.timeSinceLevelLoad - _jumpTime < JUMPING_START_TIME;
