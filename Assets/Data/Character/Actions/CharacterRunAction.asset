@@ -14,7 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   G: 9.873
   RunningSpeed: 6.5
-  ChargingSpeed: 12
-  LateralSpeed: 4
-  Acceleration: 6
-  JumpHeight: 2
+  Acceleration: 10
+  JumpHeight: 3

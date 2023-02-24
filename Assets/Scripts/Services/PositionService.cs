@@ -26,7 +26,7 @@ namespace Services {
             _nextTile = _tilesManager.GetTile(1);
 
             var characterManager = GameObject.FindObjectOfType<CharacterManager>();
-            characterManager.transform.position = Vector3.zero;
+            //characterManager.transform.position = Vector3.zero;
             _segmentIndex = 0;
             _subcurveIndex = 0;
             _tileIndex = 0;

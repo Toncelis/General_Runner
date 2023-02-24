@@ -1,6 +1,4 @@
-﻿using System;
-using Cinemachine;
-using Extensions;
+﻿using Extensions;
 using Services;
 using UnityEngine;
 
