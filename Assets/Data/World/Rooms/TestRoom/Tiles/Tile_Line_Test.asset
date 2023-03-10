@@ -15,18 +15,10 @@ MonoBehaviour:
   NextTileOptions:
     objects:
     - {fileID: 11400000, guid: 7a3b62194348caf49a297a279592e8b5, type: 2}
-    - {fileID: 11400000}
     - {fileID: 11400000, guid: 4df0c5152befd9a44af791f87bd93e21, type: 2}
-    - {fileID: 11400000, guid: ea72cc75e416be048939de47764f8eef, type: 2}
-    - {fileID: 11400000, guid: bcd0634c2bcdb544aafb06be58c27fe3, type: 2}
-    - {fileID: 11400000, guid: 0c274744420079f4cbff4b9bc17bb051, type: 2}
     weights:
     - 2
     - 2
-    - 2
-    - 1
-    - 1
-    - 1
   TrackObjectOptions:
     objects:
     - {fileID: 11400000, guid: 4ac7ac5b6e94b6248bc19609c9003f8e, type: 2}
