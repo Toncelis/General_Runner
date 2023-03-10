@@ -19,6 +19,31 @@ public class SplineMeshCreator : MonoBehaviour {
     }
 
     [Button]
+    public void GenerateHardMesh(float leftEdgeOffset, float rightEdgeOffset, float bottomEdgeOffset, float topEdgeOffset, MeshFilter meshFilter) {
+        if (spline.count < 2) {
+            return;
+        }
+
+        var mesh = new Mesh {
+            name = "Procedural Mesh"
+        };
+
+        var initialVertices = GenerateVertices(spline, leftEdgeOffset, rightEdgeOffset, bottomEdgeOffset, topEdgeOffset);
+
+        List<Vector3> vertices = new();
+        List<int> triangles = new();
+        List<Vector3> normals = new();
+
+        GenerateHardMesh(initialVertices, vertices, triangles, normals);
+
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = triangles.ToArray();
+        mesh.normals = normals.ToArray();
+
+        meshFilter.mesh = mesh;
+    }
+
+    [Button]
     public void GenerateMesh(float leftEdgeOffset, float rightEdgeOffset, float bottomEdgeOffset, float topEdgeOffset, MeshFilter meshFilter) {
         if (spline.count < 2) {
             return;
@@ -30,7 +55,6 @@ public class SplineMeshCreator : MonoBehaviour {
 
         var vertices = GenerateVertices(spline, leftEdgeOffset, rightEdgeOffset, bottomEdgeOffset, topEdgeOffset);
         mesh.vertices = vertices;
-
         var triangles = GenerateTrianglesWithVolume(vertices.Length);
         mesh.triangles = triangles.ToArray();
 
@@ -38,7 +62,7 @@ public class SplineMeshCreator : MonoBehaviour {
     }
 
     [Button]
-    public GameObject GenerateChildMesh(string childName, float leftEdgeOffset, float rightEdgeOffset, float bottomEdgeOffset, float topEdgeOffset) {
+    public GameObject GenerateChildMesh(string childName, float leftEdgeOffset, float rightEdgeOffset, float bottomEdgeOffset, float topEdgeOffset, bool useHardQuads) {
         MeshFilter meshFilter;
 
         for (int i = 0; i < transform.childCount; i++) {
@@ -48,9 +72,14 @@ public class SplineMeshCreator : MonoBehaviour {
             }
 
             meshFilter = child.GetOrAddComponent<MeshFilter>();
-            GenerateMesh(leftEdgeOffset, rightEdgeOffset, bottomEdgeOffset, topEdgeOffset, meshFilter);
-            child.gameObject.AddComponent<SerializeMesh>();
-            return child.gameObject;
+            if (useHardQuads) {
+                GenerateHardMesh(leftEdgeOffset, rightEdgeOffset, bottomEdgeOffset, topEdgeOffset, meshFilter);
+            } else {
+                GenerateMesh(leftEdgeOffset, rightEdgeOffset, bottomEdgeOffset, topEdgeOffset, meshFilter);
+            }
+            GameObject o;
+            (o = child.gameObject).AddComponent<SerializeMesh>();
+            return o;
         }
 
         var meshHolder = new GameObject(childName);
@@ -58,7 +87,11 @@ public class SplineMeshCreator : MonoBehaviour {
         meshHolder.transform.localPosition = Vector3.zero;
         meshFilter = meshHolder.AddComponent<MeshFilter>();
         meshHolder.AddComponent<SerializeMesh>();
-        GenerateMesh(leftEdgeOffset, rightEdgeOffset, bottomEdgeOffset, topEdgeOffset, meshFilter);
+        if (useHardQuads) {
+            GenerateHardMesh(leftEdgeOffset, rightEdgeOffset, bottomEdgeOffset, topEdgeOffset, meshFilter);
+        } else {
+            GenerateMesh(leftEdgeOffset, rightEdgeOffset, bottomEdgeOffset, topEdgeOffset, meshFilter);
+        }
         return meshHolder;
     }
 
@@ -91,6 +124,23 @@ public class SplineMeshCreator : MonoBehaviour {
         vertices.Add(center + sideVector * leftEdgeOffset + Vector3.up * bottomEdgeOffset);
     }
 
+    private void GenerateHardMesh(Vector3[] initialVertices, List<Vector3> vertices, List<int> triangles, List<Vector3> normals) {
+        for (int i = 0; i < initialVertices.Length - 7; i += 4) {
+            var quadVertices = new[] { initialVertices[i], initialVertices[i + 1], initialVertices[i + 4], initialVertices[i + 5] };
+            //top quad
+            AddHardQuad(quadVertices, vertices, triangles, normals);
+            quadVertices = new[] { initialVertices[i + 3], initialVertices[i + 2], initialVertices[i + 7], initialVertices[i + 6] };
+            //bot quad
+            AddHardQuad(quadVertices, vertices, triangles, normals);
+            quadVertices = new[] { initialVertices[i + 2], initialVertices[i], initialVertices[i + 6], initialVertices[i + 4] };
+            //right quad
+            AddHardQuad(quadVertices, vertices, triangles, normals);
+            quadVertices = new[] { initialVertices[i + 1], initialVertices[i + 3], initialVertices[i + 5], initialVertices[i + 7] };
+            //left quad
+            AddHardQuad(quadVertices, vertices, triangles, normals);
+        }
+    }
+
     private int[] GenerateTrianglesWithVolume(int verticesCount) {
         var triangles = new List<int>();
         for (int i = 0; i < verticesCount - 7; i += 4) {
@@ -111,6 +161,25 @@ public class SplineMeshCreator : MonoBehaviour {
         AddQuad(new[] { verticesCount - 4, verticesCount - 3, verticesCount - 2, verticesCount - 1 }, triangles);
 
         return triangles.ToArray();
+    }
+
+    private void AddHardQuad(Vector3[] initialVertices, List<Vector3> vertices, List<int> triangles, List<Vector3> normals) {
+        int quadStartIndex = vertices.Count;
+        vertices.AddRange(initialVertices);
+
+        triangles.Add(quadStartIndex);
+        triangles.Add(quadStartIndex + 1);
+        triangles.Add(quadStartIndex + 2);
+
+        triangles.Add(quadStartIndex + 1);
+        triangles.Add(quadStartIndex + 3);
+        triangles.Add(quadStartIndex + 2);
+
+        Vector3 normal0 = Vector3.Cross(initialVertices[1] - initialVertices[0], initialVertices[2] - initialVertices[0]).normalized;
+        Vector3 normal = Vector3.Cross(initialVertices[3] - initialVertices[0], initialVertices[2] - initialVertices[1]).normalized;
+        Vector3 normal3 = Vector3.Cross(initialVertices[3] - initialVertices[1], initialVertices[2] - initialVertices[1]).normalized;
+
+        normals.AddRange(new[] { normal0, normal, normal, normal3 });
     }
 
     private void AddQuad(int[] indexes, List<int> triangles) {
