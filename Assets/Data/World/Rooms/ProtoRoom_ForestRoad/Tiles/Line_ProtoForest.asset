@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a701ba4af6248feb6f529ac732a8eee, type: 3}
+  m_Name: Line_ProtoForest
+  m_EditorClassIdentifier: 
+  NextTileOptions:
+    objects:
+    - {fileID: 11400000}
+    - {fileID: 11400000, guid: 26597e7c624001c4eb9eadc9a86bffa9, type: 2}
+    - {fileID: 11400000, guid: 008e2c1c0895f264db2fbfd4ef50c516, type: 2}
+    weights:
+    - 1
+    - 2
+    - 1
+  TrackObjectOptions:
+    objects: []
+    weights: []
+  TilePrefab: {fileID: 9004769660899231809, guid: 1fbb27a22e48fc14cb796c0b4b615fce,
+    type: 3}
+  _initialBlankSpace: 5
+  _minBlankSpace: 2
+  _maxBlankSpace: 5
