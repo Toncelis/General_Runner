@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DefaultNamespace.World.View;
 using Extensions;
 using UnityEngine;
@@ -7,6 +8,7 @@ using World.Model;
 namespace DefaultNamespace.Managers {
     public class WorldTilesManager : MonoBehaviour {
         private readonly Dictionary<int, TileView> _generatedTiles = new();
+        private Dictionary<int, Action> OnTileEnter = new();
 
         private TileView LastTile => _generatedTiles[LastTileIndex];
         private int _lastTileIndex = -1;
@@ -24,12 +26,30 @@ namespace DefaultNamespace.Managers {
             return null;
         }
 
-        public void LoadNextTile() {
-            var lastTile = LastTile;
-            var newTileConfig = lastTile.TileConfig.GetNextTile();
-            var exitDirection = lastTile.exitDirectionWorld.WithY(0);
-            
-            GenerateTile(newTileConfig, lastTile.exitPointWorld, exitDirection);
+        public void LoadNextTile(Action onTileEnter = null) {
+            var newTileConfig = LastTile.TileConfig.GetNextTile();
+            LoadTile(newTileConfig, onTileEnter);
+        }
+
+        public void NormalizeAndLoadTile(TileConfig newTile, Action onTileEnter = null) {
+            var normalizingTile = LastTile.TileConfig.NormalizingTile;
+            if (normalizingTile != null) {
+                LoadTile(normalizingTile);
+            }
+            LoadTile(newTile, onTileEnter);
+        }
+
+        private void LoadTile(TileConfig tile, Action onTileEnter = null) {
+            var exitDirection = LastTile.exitDirectionWorld.WithY(0);
+            GenerateTile(tile, LastTile.exitPointWorld, exitDirection);
+            if (onTileEnter != null) {
+                void OnTileEnterWithClearing() {
+                    onTileEnter();
+                    OnTileEnter.Remove(_lastTileIndex);
+                }
+
+                OnTileEnter.Add(_lastTileIndex, OnTileEnterWithClearing);
+            }
         }
 
         private void GenerateTile(TileConfig tileConfig, Vector3 position, Vector3 flatDirection) {
@@ -55,6 +75,12 @@ namespace DefaultNamespace.Managers {
             var tile = _generatedTiles[tileIndex];
             _generatedTiles.Remove(tileIndex);
             tile.Destroy();
+        }
+
+        public void EnterTile(int tileIndex) {
+            if (OnTileEnter.ContainsKey(tileIndex)) {
+                OnTileEnter[tileIndex]();
+            }
         }
 
         public void InitialGeneration() {

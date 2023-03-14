@@ -5,11 +5,12 @@ using UnityEngine;
 namespace World.Controller {
     public class CollectableController : MonoBehaviour {
         [SerializeField] private float ShrinkSpeed;
-        [SerializeField] private ScriptableSignal CollectablesPickUp;
+        [SerializeField] private CollectableTypes type;
+        [SerializeField] private CollectablesSignal CollectablesPickUp;
         
         private void OnTriggerEnter(Collider other) {
             if (other.CompareTag("Player")) {
-                CollectablesPickUp.Fire();
+                CollectablesPickUp.Fire(type);
                 StartCoroutine(DestructionRoutine());
             }
         }

@@ -75,6 +75,7 @@ namespace Services {
             _currentTile = _nextTile;
             _tileIndex++;
             _nextTile = _tilesManager.GetTile(_tileIndex + 1);
+            _tilesManager.EnterTile(_tileIndex);
 
             Debug.Log($"tile index : {_tileIndex}. LastTile index :{_tilesManager.LastTileIndex}");
             

@@ -19,9 +19,12 @@ namespace World.Model {
         [SerializeField]
         private float _maxBlankSpace = 5f;
 
+        [SerializeField] private TileConfig normalizingTile;
+
         public float InitialBlankSpace => _initialBlankSpace;
         public float MinBlankSpace => _minBlankSpace;
         public float MaxBlankSpace => _maxBlankSpace;
+        public TileConfig NormalizingTile => normalizingTile;
 
         public TileConfig GetNextTile() {
             return NextTileOptions.GetRandomObject();
