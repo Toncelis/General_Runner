@@ -26,8 +26,9 @@ namespace DefaultNamespace.Managers {
         }
 
         private void OnControllerColliderHit(ControllerColliderHit hit) {
-            if (hit.transform.CompareTag("Finish")) {
-                OnTileCenterReached.Fire();
+            if (hit.transform.CompareTag("Danger")) {
+                StandardAction.StopAction();
+                _characterAnimator.SetTrigger("Die");
             }
         }
 
