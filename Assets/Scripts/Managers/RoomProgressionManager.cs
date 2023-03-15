@@ -29,10 +29,6 @@ namespace DefaultNamespace.Managers {
         }
 
         private void RunRoomFinishedCheck(CollectableTypes collectedType) {
-            foreach (var pair in _collectionProgress) {
-                Debug.Log($"{pair.Key} : {pair.Value}");
-            }
-            
             foreach (var finishRule in CurrentRoom.NextRooms) {
                 if (finishRule.Requirements.All(rule => _collectionProgress[rule.collectable] >= rule.amount)) {
                     FinishRoom(finishRule);
@@ -70,14 +66,14 @@ namespace DefaultNamespace.Managers {
             _roomGoals.Clear();
 
             int exitOptionsCount = room.NextRooms.Count;
-            float offset = (exitOptionsCount - 1) * (RoomGoalSpace+ RoomGoalWidth);
+            float offset = (exitOptionsCount - 1) * (RoomGoalSpace + RoomGoalWidth);
             offset /= -2;
 
             for (int i = 0; i < exitOptionsCount; i++) {
                 var roomGoal = Instantiate(RoomGoalPrefab, UIPanel).GetComponent<RoomGoal>();
-                roomGoal.Setup(Vector3.right*offset, room.NextRooms[i].NextRoom.RoomSprite);
+                roomGoal.Setup(Vector3.right * offset, room.NextRooms[i].NextRoom.RoomSprite);
                 offset += RoomGoalWidth + RoomGoalSpace;
-                _roomGoals.Add(room.NextRooms[i],roomGoal);
+                _roomGoals.Add(room.NextRooms[i], roomGoal);
 
                 foreach (var requirement in room.NextRooms[i].Requirements) {
                     if (!_collectionProgress.ContainsKey(requirement.collectable)) {
@@ -97,7 +93,6 @@ namespace DefaultNamespace.Managers {
                 var type = requirement.collectable;
                 var amount = requirement.amount;
                 progression += (float)_collectionProgress[type] / amount;
-                Debug.Log($"progression calculation : {progression}");
             }
 
             var progress = Mathf.Min(1, progression / requirementsCount);

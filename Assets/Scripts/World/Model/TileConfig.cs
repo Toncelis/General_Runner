@@ -33,7 +33,7 @@ namespace World.Model {
         public bool GetNextTrackObject(Predicate<TrackObjectConfig> condition, out TrackObjectConfig objConfig) {
             return TrackObjectOptions.GetRandomObjectWithCondition(condition, out objConfig);
         }
-        
+
         public GameObject prefab => TilePrefab;
     }
 }

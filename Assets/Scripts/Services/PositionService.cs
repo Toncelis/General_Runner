@@ -30,14 +30,14 @@ namespace Services {
             _segmentIndex = 0;
             _subcurveIndex = 0;
             _tileIndex = 0;
-            
+
             _segmentStart = _currentTile.transform.TransformPoint(_currentTile.Spline.Bezier(_subcurveIndex, (float)_segmentIndex / _currentTile.Density));
             _segmentEnd = _currentTile.transform.TransformPoint(_currentTile.Spline.Bezier(_subcurveIndex, (float)(_segmentIndex + 1) / _currentTile.Density));
-            
+
             characterManager.StartMovement();
         }
 
-        
+
         public void ProcessNewPosition(Vector3 position) {
             var flatPosition = position.XZProjection();
             var flatStart = _segmentStart.XZProjection();
@@ -48,7 +48,7 @@ namespace Services {
                 ProgressToNextSegment();
             }
         }
-        
+
         private void ProgressToNextSegment() {
             _segmentIndex++;
             if (_segmentIndex >= _currentTile.Density) {
@@ -62,7 +62,7 @@ namespace Services {
 
         private void ProgressToNextSubcurve() {
             _subcurveIndex++;
-            if (_subcurveIndex < _currentTile.Spline.count-1) {
+            if (_subcurveIndex < _currentTile.Spline.count - 1) {
                 return;
             }
             _subcurveIndex = 0;
@@ -77,8 +77,6 @@ namespace Services {
             _nextTile = _tilesManager.GetTile(_tileIndex + 1);
             _tilesManager.EnterTile(_tileIndex);
 
-            Debug.Log($"tile index : {_tileIndex}. LastTile index :{_tilesManager.LastTileIndex}");
-            
             if (_tileIndex + 3 > _tilesManager.LastTileIndex) {
                 _tilesManager.LoadNextTile();
             }

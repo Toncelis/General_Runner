@@ -7,7 +7,7 @@ namespace World.Controller {
         [SerializeField] private float ShrinkSpeed;
         [SerializeField] private CollectableTypes type;
         [SerializeField] private CollectablesSignal CollectablesPickUp;
-        
+
         private void OnTriggerEnter(Collider other) {
             if (other.CompareTag("Player")) {
                 CollectablesPickUp.Fire(type);

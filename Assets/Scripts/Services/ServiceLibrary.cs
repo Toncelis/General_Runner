@@ -6,7 +6,7 @@ namespace Services {
         private static ServiceLibrary Instance;
         private Dictionary<string, Service> _services;
 
-        public static T GetService<T> () where T:Service, new() {
+        public static T GetService<T>() where T : Service, new() {
             string type = typeof(T).ToString();
             if (!Instance._services.ContainsKey(type)) {
                 Instance.SetupService<T>(type);
@@ -25,13 +25,13 @@ namespace Services {
         private void Start() {
             SetupServices();
         }
-        
+
         private void SetupServices() {
             _services = new();
             GetService<PositionService>();
         }
-        
-        private void SetupService <T> (string type) where T : Service, new() {
+
+        private void SetupService<T>(string type) where T : Service, new() {
             var service = new T();
             _services.Add(type, service);
             service.SetupService();

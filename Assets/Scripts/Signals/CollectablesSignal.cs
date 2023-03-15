@@ -7,7 +7,7 @@ namespace DefaultNamespace.Signals {
     [CreateAssetMenu(menuName = "SoSignals/Collectables", order = 0, fileName = "CollectableSoSignal")]
     public class CollectablesSignal : ScriptableObject {
         private List<Action<CollectableTypes>> _responses = new();
-        
+
         public void RegisterResponse(Action<CollectableTypes> response) {
             _responses.AddIfNewAndNotNull(response);
         }

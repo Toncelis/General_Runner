@@ -16,7 +16,7 @@ namespace DefaultNamespace.Managers {
 
         [SerializeField]
         private RoomSettings RoomSettings;
-        
+
         public TileView GetTile(int index) {
             if (_generatedTiles.ContainsKey(index)) {
                 return _generatedTiles[index];
@@ -54,16 +54,15 @@ namespace DefaultNamespace.Managers {
 
         private void GenerateTile(TileConfig tileConfig, Vector3 position, Vector3 flatDirection) {
             _lastTileIndex++;
-            
-            Debug.Log("loading new tile");
+
             var tileObject = Instantiate(tileConfig.prefab, parent : transform);
             tileObject.name = $"{tileConfig.name}_{_lastTileIndex}";
             tileObject.transform.position = position;
             tileObject.transform.forward = flatDirection;
-            
+
             var tileView = tileObject.GetComponent<TileView>();
             tileView.Setup(tileConfig);
-            
+
             _generatedTiles.Add(_lastTileIndex, tileObject.GetComponent<TileView>());
         }
 

@@ -11,7 +11,6 @@ namespace DefaultNamespace.Managers {
         private Image goalProgressBar;
 
         public void ChangeFilling(float value) {
-            Debug.Log($"changing filling of {this.name} to {value}", this);
             goalProgressBar.DOFillAmount(value, 0.1f);
                 
             transform.DOPunchScale(Vector3.one * 1.01f, 0.1f);
