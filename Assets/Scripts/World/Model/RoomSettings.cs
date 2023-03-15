@@ -20,15 +20,20 @@ public class RoomChangingRule {
     [SerializeField]
     private RoomSettings nextRoom;
     [SerializeField]
-    private List<(CollectableTypes, int)> requirements;
+    private List<RoomChangeRequirement> requirements;
     [SerializeField]
     private TileConfig changerTile;
 
     public RoomSettings NextRoom => nextRoom;
-    public List<(CollectableTypes, int)> Requirements => requirements;
+    public List<RoomChangeRequirement> Requirements => requirements;
     public TileConfig ChangerTile => changerTile;
 }
 
+[Serializable]
+public class RoomChangeRequirement {
+    public CollectableTypes collectable;
+    public int amount;
+}
 
 public enum CollectableTypes {
     primal,

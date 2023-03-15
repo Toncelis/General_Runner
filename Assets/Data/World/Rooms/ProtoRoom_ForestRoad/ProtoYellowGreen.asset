@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47f0e782de95cd9458acc0df03b0e192, type: 3}
+  m_Name: ProtoYellowGreen
+  m_EditorClassIdentifier: 
+  StartRoadTile: {fileID: 11400000, guid: 1be86adbf212fab46b7b361d53bbf86f, type: 2}
+  MinTrackObjectBlanks: 2
+  MaxTrackObjectBlanks: 4
+  NextRooms:
+  - nextRoom: {fileID: 11400000, guid: a0e58d371e2f5e54b9df0bfb24cb457c, type: 2}
+    requirements:
+    - collectable: 1
+      amount: 5
+    changerTile: {fileID: 0}
+  - nextRoom: {fileID: 11400000, guid: ba963182cd50d7e4fb900262461667ba, type: 2}
+    requirements:
+    - collectable: 2
+      amount: 5
+    changerTile: {fileID: 0}
+  RoomSprite: {fileID: 21300000, guid: 7a78cf7b2e0e5b04a8fd38522f1c039c, type: 3}

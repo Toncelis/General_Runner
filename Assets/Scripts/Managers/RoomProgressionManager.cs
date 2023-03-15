@@ -9,8 +9,8 @@ namespace DefaultNamespace.Managers {
         public RoomSettings CurrentRoom;
         public WorldTilesManager TilesManager;
 
-        private Dictionary<CollectableTypes, int> _collectionProgress;
-        private Dictionary<RoomChangingRule, RoomGoal> _roomGoals;
+        private Dictionary<CollectableTypes, int> _collectionProgress = new();
+        private Dictionary<RoomChangingRule, RoomGoal> _roomGoals = new();
 
         public RectTransform UIPanel;
         public GameObject RoomGoalPrefab;
@@ -25,19 +25,25 @@ namespace DefaultNamespace.Managers {
             }
 
             _collectionProgress[type]++;
-            RunRoomFinishedCheck();
+            RunRoomFinishedCheck(type);
         }
 
-        private void RunRoomFinishedCheck() {
+        private void RunRoomFinishedCheck(CollectableTypes collectedType) {
+            foreach (var pair in _collectionProgress) {
+                Debug.Log($"{pair.Key} : {pair.Value}");
+            }
+            
             foreach (var finishRule in CurrentRoom.NextRooms) {
-                if (finishRule.Requirements.All(rule => _collectionProgress[rule.Item1] >= rule.Item2)) {
+                if (finishRule.Requirements.All(rule => _collectionProgress[rule.collectable] >= rule.amount)) {
                     FinishRoom(finishRule);
                     return;
                 }
             }
 
             foreach (var finishRule in CurrentRoom.NextRooms) {
-                UpdateRuleIcon(finishRule);
+                if (finishRule.Requirements.Any(rule => rule.collectable == collectedType)) {
+                    UpdateRuleIcon(finishRule);
+                }
             }
         }
 
@@ -70,11 +76,12 @@ namespace DefaultNamespace.Managers {
             for (int i = 0; i < exitOptionsCount; i++) {
                 var roomGoal = Instantiate(RoomGoalPrefab, UIPanel).GetComponent<RoomGoal>();
                 roomGoal.Setup(Vector3.right*offset, room.NextRooms[i].NextRoom.RoomSprite);
+                offset += RoomGoalWidth + RoomGoalSpace;
                 _roomGoals.Add(room.NextRooms[i],roomGoal);
 
                 foreach (var requirement in room.NextRooms[i].Requirements) {
-                    if (!_collectionProgress.ContainsKey(requirement.Item1)) {
-                        _collectionProgress.Add(requirement.Item1, 0);
+                    if (!_collectionProgress.ContainsKey(requirement.collectable)) {
+                        _collectionProgress.Add(requirement.collectable, 0);
                     }
                 }
             }
@@ -87,11 +94,13 @@ namespace DefaultNamespace.Managers {
             int requirementsCount = 0;
             foreach (var requirement in rule.Requirements) {
                 requirementsCount++;
-                var (type, amount) = requirement;
-                progression = Mathf.Min(1, _collectionProgress[type] / amount);
+                var type = requirement.collectable;
+                var amount = requirement.amount;
+                progression += (float)_collectionProgress[type] / amount;
+                Debug.Log($"progression calculation : {progression}");
             }
 
-            var progress = progression / requirementsCount;
+            var progress = Mathf.Min(1, progression / requirementsCount);
             _roomGoals[rule].ChangeFilling(1 - progress);
         }
 
