@@ -20,10 +20,10 @@ MonoBehaviour:
     requirements:
     - collectable: 0
       amount: 5
-    changerTile: {fileID: 0}
+    changerTile: {fileID: 11400000, guid: eaa36d8abdc96aa48adb4cf0986a21c7, type: 2}
   - nextRoom: {fileID: 11400000, guid: ba963182cd50d7e4fb900262461667ba, type: 2}
     requirements:
     - collectable: 2
       amount: 5
-    changerTile: {fileID: 0}
+    changerTile: {fileID: 11400000, guid: 788a5fd0d78072d49924c9637f122ec1, type: 2}
   RoomSprite: {fileID: 21300000, guid: 226fd767f8859904397a70f44d3375f5, type: 3}

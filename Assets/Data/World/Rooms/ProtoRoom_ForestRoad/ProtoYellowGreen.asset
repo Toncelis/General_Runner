@@ -19,11 +19,11 @@ MonoBehaviour:
   - nextRoom: {fileID: 11400000, guid: a0e58d371e2f5e54b9df0bfb24cb457c, type: 2}
     requirements:
     - collectable: 1
-      amount: 5
-    changerTile: {fileID: 0}
+      amount: 3
+    changerTile: {fileID: 11400000, guid: eaa36d8abdc96aa48adb4cf0986a21c7, type: 2}
   - nextRoom: {fileID: 11400000, guid: ba963182cd50d7e4fb900262461667ba, type: 2}
     requirements:
     - collectable: 2
-      amount: 5
-    changerTile: {fileID: 0}
+      amount: 3
+    changerTile: {fileID: 11400000, guid: 31c8c226ec0e6144db85d1d66e30ddcd, type: 2}
   RoomSprite: {fileID: 21300000, guid: 7a78cf7b2e0e5b04a8fd38522f1c039c, type: 3}
