@@ -22,10 +22,13 @@ MonoBehaviour:
     - 2
     - 2
   TrackObjectOptions:
-    objects: []
-    weights: []
+    objects:
+    - {fileID: 11400000, guid: 6c598eb9c5b98c04992e76ec00a7ca4f, type: 2}
+    weights:
+    - 1
   TilePrefab: {fileID: 3849572997454447560, guid: b21aa7def01fd374a9e86bc6cee7e020,
     type: 3}
   _initialBlankSpace: 5
   _minBlankSpace: 2
   _maxBlankSpace: 5
+  normalizingTile: {fileID: 0}

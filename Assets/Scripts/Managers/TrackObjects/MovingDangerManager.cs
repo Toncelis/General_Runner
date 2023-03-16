@@ -23,22 +23,36 @@ public class MovingDangerManager : TrackObjectManager {
         int length = points.Count-1;
         
         var sequence = DOTween.Sequence();
-        for (int i = 1; i <= length; i++) {
-            var offset = points[i] - points[i - 1];
-            sequence.Append(transform.DOMove(points[i], offset.magnitude / speed));
-            sequence.Join(transform.DOLookAt(points[i], rotationTime));
+        
+        var offset = points[1] - points[0];
+        AddMoveAndLookToSequence(in sequence, points[1], offset.magnitude, Ease.InSine);
+        for (int i = 2; i < length; i++) {
+            offset = points[i] - points[i - 1];
+            AddMoveAndLookToSequence(in sequence, points[i], offset.magnitude, Ease.Linear);
         }
+        offset = points[length] - points[length - 1];
+        AddMoveAndLookToSequence(in sequence, points[length], offset.magnitude, Ease.OutSine);
+        
+        
         sequence.Append(transform.DOLookAt(points[length-1], stopTime));
-        for (int i = length-1; i >= 0; i--) {
-            var offset = points[i] - points[i + 1];
-            sequence.Append(transform.DOMove(points[i], offset.magnitude / speed));
-            sequence.Join(transform.DOLookAt(points[i], rotationTime));
+        offset = points[length - 1] - points[length];
+        AddMoveAndLookToSequence(in sequence, points[length-1], offset.magnitude, Ease.InSine);
+        for (int i = length-2; i > 0; i--) {
+             offset = points[i] - points[i + 1];
+            AddMoveAndLookToSequence(in sequence, points[i], offset.magnitude, Ease.Linear);
         }
+        offset = points[1] - points[0];
+        AddMoveAndLookToSequence(in sequence, points[0], offset.magnitude, Ease.OutSine);
+        
         sequence.Append(transform.DOLookAt(points[1], stopTime));
+        
         sequence.SetLoops(-1);
         sequence.Restart();
     }
-    
-    
+
+    private void AddMoveAndLookToSequence(in Sequence sequence, Vector3 position, float distance, Ease easeType) {
+        sequence.Append(transform.DOMove(position, distance / speed).SetEase(easeType));
+        sequence.Join(transform.DOLookAt(position, rotationTime));
+    }
     
 }

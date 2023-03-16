@@ -160,13 +160,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ea77f857850eb40baa4458a1a5ee84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 4
   rotationTime: 1
   stopTime: 2
   travelPointsViaLength:
   - 0
   - 4
   - 8
+  - 12
+  - 16
+  - 20
 --- !u!54 &922395091761562703
 Rigidbody:
   m_ObjectHideFlags: 0
