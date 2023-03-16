@@ -200,6 +200,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41979333}
   m_CullTransparentMesh: 1
+--- !u!1 &122545145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 122545147}
+  - component: {fileID: 122545146}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &122545146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122545145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac7f0d6ddd044929b46bbebebd25580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkipTutorial: {fileID: 811242424}
+  CustomStart: {fileID: 1075732183}
+  StartingRoomDropdown: {fileID: 993789804}
+  StartButton: {fileID: 808495034}
+  ExitButton: {fileID: 1680034096}
+  StartSettings: {fileID: 11400000, guid: 1f99db6e356ca5441919a5fe72558675, type: 2}
+  MainScene: SampleScene
+  RoomsArray:
+  - {fileID: 11400000, guid: a38aefae7c73fbe4fb97b5ba0c985f07, type: 2}
+  - {fileID: 11400000, guid: c11d8e7fceea36440a9390151dff1d64, type: 2}
+  - {fileID: 11400000, guid: a0e58d371e2f5e54b9df0bfb24cb457c, type: 2}
+  - {fileID: 11400000, guid: ba963182cd50d7e4fb900262461667ba, type: 2}
+--- !u!4 &122545147
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122545145}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &161820524
 GameObject:
   m_ObjectHideFlags: 0

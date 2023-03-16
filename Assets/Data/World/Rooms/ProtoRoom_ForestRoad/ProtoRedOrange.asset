@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f0e782de95cd9458acc0df03b0e192, type: 3}
   m_Name: ProtoRedOrange
   m_EditorClassIdentifier: 
-  StartRoadTile: {fileID: 11400000, guid: 1be86adbf212fab46b7b361d53bbf86f, type: 2}
+  StartRoadTile: {fileID: 11400000, guid: 2a3b406cbfb7a844284b4c4c3e816f1f, type: 2}
   MinTrackObjectBlanks: 2
   MaxTrackObjectBlanks: 4
   NextRooms:
