@@ -6,7 +6,8 @@ using UnityEngine;
 namespace DefaultNamespace.Managers {
     public class RoomProgressionManager : MonoBehaviour {
         public CollectablesSignal signal;
-        public RoomSettings CurrentRoom;
+        public StartSettings StartSettings;
+        private RoomSettings _currentRoom;
         public WorldTilesManager TilesManager;
 
         private Dictionary<CollectableTypes, int> _collectionProgress = new();
@@ -29,14 +30,14 @@ namespace DefaultNamespace.Managers {
         }
 
         private void RunRoomFinishedCheck(CollectableTypes collectedType) {
-            foreach (var finishRule in CurrentRoom.NextRooms) {
+            foreach (var finishRule in _currentRoom.NextRooms) {
                 if (finishRule.Requirements.All(rule => _collectionProgress[rule.collectable] >= rule.amount)) {
                     FinishRoom(finishRule);
                     return;
                 }
             }
 
-            foreach (var finishRule in CurrentRoom.NextRooms) {
+            foreach (var finishRule in _currentRoom.NextRooms) {
                 if (finishRule.Requirements.Any(rule => rule.collectable == collectedType)) {
                     UpdateRuleIcon(finishRule);
                 }
@@ -82,7 +83,7 @@ namespace DefaultNamespace.Managers {
                 }
             }
 
-            CurrentRoom = room;
+            _currentRoom = room;
         }
 
         private void UpdateRuleIcon(RoomChangingRule rule) {
@@ -101,7 +102,7 @@ namespace DefaultNamespace.Managers {
 
         private void OnEnable() {
             signal.RegisterResponse(OnCollectablesSignal);
-            PrepareRoom(CurrentRoom);
+            PrepareRoom(StartSettings.StartingRoom);
         }
 
         private void OnDisable() {

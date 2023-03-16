@@ -10,13 +10,12 @@ namespace DefaultNamespace.Managers {
         private readonly Dictionary<int, TileView> _generatedTiles = new();
         private Dictionary<int, Action> OnTileEnter = new();
 
-        private TileView LastTile => _generatedTiles[LastTileIndex];
+        private TileView lastTile => _generatedTiles[LastTileIndex];
         private int _lastTileIndex = -1;
         public int LastTileIndex => _lastTileIndex;
 
-        [SerializeField]
-        private RoomSettings RoomSettings;
-
+        private RoomSettings _roomSettings;
+        
         public TileView GetTile(int index) {
             if (_generatedTiles.ContainsKey(index)) {
                 return _generatedTiles[index];
@@ -27,12 +26,12 @@ namespace DefaultNamespace.Managers {
         }
 
         public void LoadNextTile(Action onTileEnter = null) {
-            var newTileConfig = LastTile.TileConfig.GetNextTile();
+            var newTileConfig = lastTile.TileConfig.GetNextTile();
             LoadTile(newTileConfig, onTileEnter);
         }
 
         public void NormalizeAndLoadTile(TileConfig newTile, Action onTileEnter = null) {
-            var normalizingTile = LastTile.TileConfig.NormalizingTile;
+            var normalizingTile = lastTile.TileConfig.NormalizingTile;
             if (normalizingTile != null) {
                 LoadTile(normalizingTile);
             }
@@ -40,8 +39,8 @@ namespace DefaultNamespace.Managers {
         }
 
         private void LoadTile(TileConfig tile, Action onTileEnter = null) {
-            var exitDirection = LastTile.exitDirectionWorld.WithY(0);
-            GenerateTile(tile, LastTile.exitPointWorld, exitDirection);
+            var exitDirection = lastTile.exitDirectionWorld.WithY(0);
+            GenerateTile(tile, lastTile.exitPointWorld, exitDirection);
             if (onTileEnter != null) {
                 void OnTileEnterWithClearing() {
                     onTileEnter();
@@ -82,8 +81,11 @@ namespace DefaultNamespace.Managers {
             }
         }
 
+        public StartSettings startSettings;
+
         public void InitialGeneration() {
-            GenerateTile(RoomSettings.StartRoadTile, Vector3.zero, Vector3.forward);
+            _roomSettings = startSettings.StartingRoom;
+            GenerateTile(_roomSettings.StartRoadTile, Vector3.zero, Vector3.forward);
             LoadNextTile();
             LoadNextTile();
         }
