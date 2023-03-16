@@ -2,6 +2,7 @@
 using DefaultNamespace.EditorTools;
 using DefaultNamespace.EditorTools.Splines;
 using DefaultNamespace.Interfaces.DataAccessors;
+using DefaultNamespace.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -49,7 +50,6 @@ namespace DefaultNamespace.World.View {
 
         private void GenerateTrackObjects() {
             Debug.Log($"generating track objects for {name}", this);
-            Debug.Log("");
             GameObject contentHolder = new GameObject("ContentHolder") {
                 transform = {
                     parent = transform,
@@ -79,6 +79,15 @@ namespace DefaultNamespace.World.View {
             }
         }
 
+        public (Vector3, Vector3) GetPositionAndDirectionFromLength(float length) {
+            var (localPosition, localDirection) = _measuredSpline.GetPositionAndDirection(length);
+            return (transform.TransformPoint(localPosition), transform.TransformDirection(localDirection));
+        } 
+        
+        public (Vector3, Vector3) GetLocalPositionAndDirectionFromLength(float length) {
+            return _measuredSpline.GetPositionAndDirection(length);
+        }
+
         private void PlaceObject(TrackObjectConfig obj, float positioningLength, Transform parent) {
             Debug.Log($"placing object : {obj.name}");
             if (obj.Complex) {
@@ -91,8 +100,13 @@ namespace DefaultNamespace.World.View {
 
             var (position, direction) = _measuredSpline.GetPositionAndDirection(positioningLength);
             var newContent = Instantiate(obj.Prefab, parent);
-            newContent.transform.localPosition = position;
-            newContent.transform.forward = parent.TransformDirection(direction);
+            var contentManager = newContent.GetComponent<TrackObjectManager>();
+            if (contentManager != null) {
+                contentManager.Setup(this, positioningLength);
+            } else {
+                newContent.transform.localPosition = position;
+                newContent.transform.forward = parent.TransformDirection(direction);
+            }
         }
         
         #if UNITY_EDITOR

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f8b22e8064b478da4d82e8b6f1927f7, type: 3}
-  m_Name: TestDanger
+  m_Name: MovingAbomy
   m_EditorClassIdentifier: 
   complex: 0
-  prefab: {fileID: 4188945527794496089, guid: 1e15e166dc185154b9bc41dab5cc7670, type: 3}
+  prefab: {fileID: 7176285297356654008, guid: e0676aaebb1f20e42a05d6922263e841, type: 3}
   objectParts: []
-  length: 4
+  length: 8

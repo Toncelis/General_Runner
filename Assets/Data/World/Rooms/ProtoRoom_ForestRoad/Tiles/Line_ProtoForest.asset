@@ -25,9 +25,13 @@ MonoBehaviour:
     objects:
     - {fileID: 11400000, guid: 8d53a7e5664aab442b3421d6c1ac158c, type: 2}
     - {fileID: 11400000, guid: 6b263a5f2838f9f4eb29d66a16e130d5, type: 2}
+    - {fileID: 11400000, guid: 41a759b44137ca540845650b577c99d1, type: 2}
+    - {fileID: 11400000, guid: 6c598eb9c5b98c04992e76ec00a7ca4f, type: 2}
     weights:
     - 1
     - 1
+    - 1
+    - 2
   TilePrefab: {fileID: 9004769660899231809, guid: 1fbb27a22e48fc14cb796c0b4b615fce,
     type: 3}
   _initialBlankSpace: 5
