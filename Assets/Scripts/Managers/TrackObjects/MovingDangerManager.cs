@@ -47,7 +47,6 @@ public class MovingDangerManager : TrackObjectManager {
         sequence.Append(transform.DOLookAt(points[1], stopTime));
         
         sequence.SetLoops(-1);
-        sequence.Restart();
     }
 
     private void AddMoveAndLookToSequence(in Sequence sequence, Vector3 position, float distance, Ease easeType) {
