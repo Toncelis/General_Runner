@@ -55,6 +55,7 @@ namespace DefaultNamespace.UI {
             if (toggle) {
                 OnCustomStartToggle(CustomStart.isOn);
             } else {
+                StartingRoomDropdown.gameObject.SetActive(false);
                 StartSettings.SetStartingRoom(RoomsArray[0]);
             }
         }
