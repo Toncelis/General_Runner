@@ -115,9 +115,17 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7780978783969146035}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
@@ -168,7 +176,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 156000959165607683, guid: 1fbb27a22e48fc14cb796c0b4b615fce,
@@ -191,6 +199,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 7ae2d604f84b22f40a70993a510ffe48, type: 2}
+    - target: {fileID: 2280538978065056204, guid: 1fbb27a22e48fc14cb796c0b4b615fce,
+        type: 3}
+      propertyPath: m_TagString
+      value: Danger
+      objectReference: {fileID: 0}
     - target: {fileID: 3773993157906021658, guid: 1fbb27a22e48fc14cb796c0b4b615fce,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -272,11 +285,13 @@ PrefabInstance:
       value: Line_HardEdge RedOrange
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3863349156082541000, guid: 1fbb27a22e48fc14cb796c0b4b615fce,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7549351968957368818}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fbb27a22e48fc14cb796c0b4b615fce, type: 3}
 --- !u!4 &2686216417035921458 stripped
 Transform:
