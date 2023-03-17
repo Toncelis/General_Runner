@@ -1,5 +1,6 @@
 ﻿using System;
 using DG.Tweening;
+using Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,10 +11,12 @@ namespace DefaultNamespace.Managers {
         [SerializeField]
         private Image goalProgressBar;
 
+        [SerializeField] private Transform SubGoalsPanel;
+        [SerializeField] private SubGoal SubGoalPrefab; 
+
         public void ChangeFilling(float value) {
             goalProgressBar.DOFillAmount(value, 0.1f);
-                
-            transform.DOPunchScale(Vector3.one * 1.01f, 0.1f);
+            //transform.DOPunchScale(Vector3.one * 1.01f, 0.1f);
         }
 
         public void ChangePosition(float xValue) {
@@ -21,13 +24,20 @@ namespace DefaultNamespace.Managers {
             transform.DOLocalMove(position, 1);
         }
 
-        public void Setup (Vector3 rectPosition, Sprite sprite) {
+        public void Setup (Vector3 rectPosition, RoomChangingRule changingRule) {
             transform.localPosition = rectPosition;
-            goalImage.sprite = sprite;
+            goalImage.sprite = changingRule.NextRoom.RoomSprite;
 
             goalProgressBar.fillAmount = 1f;
             transform.localScale = Vector3.zero;
 
+            for (int i = 0; i < changingRule.Requirements.Count; i++) {
+                var requirement = changingRule.Requirements[i];
+                var subGoal = Instantiate(SubGoalPrefab, SubGoalsPanel);
+                subGoal.transform.localPosition = subGoal.transform.localPosition.WithY(10 - i * 10);
+                subGoal.Setup(requirement.collectable, requirement.amount, Color.blue);
+            }
+            
             Show();
         }
 

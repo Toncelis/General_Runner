@@ -72,7 +72,7 @@ namespace DefaultNamespace.Managers {
 
             for (int i = 0; i < exitOptionsCount; i++) {
                 var roomGoal = Instantiate(RoomGoalPrefab, UIPanel).GetComponent<RoomGoal>();
-                roomGoal.Setup(Vector3.right * offset, room.NextRooms[i].NextRoom.RoomSprite);
+                roomGoal.Setup(Vector3.right * offset, room.NextRooms[i]);
                 offset += RoomGoalWidth + RoomGoalSpace;
                 _roomGoals.Add(room.NextRooms[i], roomGoal);
 
