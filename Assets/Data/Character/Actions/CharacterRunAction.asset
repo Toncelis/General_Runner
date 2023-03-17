@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e976ad9828b34370b1423006883e14a3, type: 3}
   m_Name: CharacterRunAction
   m_EditorClassIdentifier: 
-  G: 9.873
-  RunningSpeed: 6.5
-  Acceleration: 10
-  JumpHeight: 3
+  G: 18
+  RunningSpeed: 8
+  SprintExtraSpeed: 6
+  Acceleration: 20
+  JumpHeight: 2

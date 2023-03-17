@@ -11,6 +11,7 @@ namespace DefaultNamespace.Run.Actions {
         private const float TIME_STEP = 0.01f;
 
         public float RunningSpeed;
+        public float SprintExtraSpeed;
         public float Acceleration;
         public float JumpHeight;
         private float JumpSpeed => Mathf.Sqrt(2 * JumpHeight * G);
@@ -52,6 +53,9 @@ namespace DefaultNamespace.Run.Actions {
             var forwardSpeed = (Input.GetKey(KeyCode.W) ? 4 : 2 + (Input.GetKey(KeyCode.S) ? -1 : 0)) * Vector2.up;
             var sideSpeed = (Input.GetKey(KeyCode.D) ? 2 : 0) * Vector2.right + (Input.GetKey(KeyCode.A) ? 2 : 0) * Vector2.left;
             var speed = (forwardSpeed + sideSpeed).normalized * RunningSpeed;
+            if (Input.GetKey(KeyCode.LeftShift)) {
+                speed += Vector2.up * SprintExtraSpeed;
+            }
             return speed.ToXZByDirection(forwardVector);
         }
 
