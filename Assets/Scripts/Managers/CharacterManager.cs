@@ -12,7 +12,9 @@ namespace DefaultNamespace.Managers {
 
         [SerializeField]
         private ScriptableSignal OnTileCenterReached;
-
+        [SerializeField]
+        private ScriptableSignal OnDeathSignal;
+        
         public CharacterController CharacterController => _characterController;
         public Transform Transform => transform;
         public Animator Animator => _characterAnimator;
@@ -29,6 +31,7 @@ namespace DefaultNamespace.Managers {
             if (hit.transform.CompareTag("Danger")) {
                 StandardAction.StopAction();
                 _characterAnimator.SetTrigger("Die");
+                OnDeathSignal.Fire();
             }
         }
 

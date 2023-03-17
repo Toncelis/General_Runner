@@ -144,7 +144,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2507879486961051417}
-  m_LocalRotation: {x: 0.22975291, y: -0.000000016746096, z: 0.0000000039532173, w: 0.973249}
+  m_LocalRotation: {x: 0.22975291, y: 0.000000016746089, z: -0.0000000039532155, w: 0.973249}
   m_LocalPosition: {x: 0, y: 5, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -381,6 +381,7 @@ MonoBehaviour:
   _characterController: {fileID: 922767270441474980}
   OnTileCenterReached: {fileID: 11400000, guid: a725a130aa8625e4fbaa4ff7328216ec,
     type: 2}
+  OnDeathSignal: {fileID: 11400000, guid: ba46473964d32ea40af86977010f6b53, type: 2}
   StandardAction: {fileID: 11400000, guid: 85ce149e56d654b40a00fba7d9cd7f1e, type: 2}
   _currentSpeedArrow: {fileID: 5115890440886502461}
   _normalArrow: {fileID: 394070446362950037}
@@ -411,7 +412,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2507879487572426839}
-  m_LocalRotation: {x: 0.17191945, y: -0.000000023971195, z: 0.000000004183401, w: 0.98511106}
+  m_LocalRotation: {x: 0.22975291, y: 0.000000016746089, z: -0.0000000039532155, w: 0.973249}
   m_LocalPosition: {x: 0, y: 5, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
