@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53b020f47fae45e499a986cb9f558451, type: 3}
-  m_Name: OnDeathSignal
+  m_Script: {fileID: 11500000, guid: ec90115034ca47c0b92c4a5e25102ca3, type: 3}
+  m_Name: UnlockCollectableSignal
   m_EditorClassIdentifier: 

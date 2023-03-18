@@ -21,6 +21,7 @@ MonoBehaviour:
     - 1
     - 2
     - 1
+    list: []
   TrackObjectOptions:
     objects:
     - {fileID: 11400000, guid: 8d53a7e5664aab442b3421d6c1ac158c, type: 2}
@@ -32,6 +33,7 @@ MonoBehaviour:
     - 1
     - 1
     - 2
+    list: []
   TilePrefab: {fileID: 9004769660899231809, guid: 1fbb27a22e48fc14cb796c0b4b615fce,
     type: 3}
   _initialBlankSpace: 5

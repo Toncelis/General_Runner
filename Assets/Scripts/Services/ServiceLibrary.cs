@@ -15,7 +15,7 @@ namespace Services {
         }
 
         private void Awake() {
-            if (Instance != null) {
+            if (Instance != null && Instance != this) {
                 Destroy(this.gameObject);
             }
 
@@ -35,6 +35,16 @@ namespace Services {
             var service = new T();
             _services.Add(type, service);
             service.SetupService();
+        }
+
+        private void OnDestroy() {
+            if (this == Instance) {
+                foreach (var service in _services.Values) {
+                    service.CloseService();
+                }
+
+                _services.Clear();
+            }
         }
     }
 }

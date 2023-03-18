@@ -1,79 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace DataTypes {
     [Serializable]
     public class WeightedList<T> {
-        [SerializeField]
-        private List<T> objects;
-        [SerializeField]
-        private List<float> weights;
+        [SerializeField, LabelText("Weighted list")]
+        private List<WeightedItem<T>> ItemsList;
 
-        public int Count => objects?.Count ?? 0;
+        public int count => ItemsList?.Count ?? 0;
 
-        public void Validate(float standardWeight = 1) {
-            objects ??= new List<T>();
-            weights ??= new List<float>();
-            int objCount = objects.Count;
-            int weightsCount = weights.Count;
-
-            for (int i = 0; i < weightsCount - objCount; i++) {
-                weights.Add(standardWeight);
-            }
-
-            for (int i = 0; i < objCount - weightsCount; i++) {
-                objects.RemoveAt(objects.Count - 1);
-            }
+        private void Add(T obj, float weight) {
+            ItemsList.Add(new (obj, weight));
         }
 
-        public void Add(T obj, float weight) {
-            Validate();
-            objects.Add(obj);
-            weights.Add(weight);
+        private void Add(WeightedItem<T> weightedItem) {
+            ItemsList.Add(weightedItem);
         }
 
         public T GetRandomObject() {
-            Validate();
-            if (objects == null || objects.Count == 0) {
+            if (count == 0) {
                 return default;
             }
 
-            float totalWeight = 0;
-            foreach (var w in weights) {
-                totalWeight += w;
-            }
+            float totalWeight = ItemsList.Sum(weightedItem => weightedItem.weight);
 
             float randomisedWeight = Random.Range(0, totalWeight);
 
-            for (int i = 0; i < objects.Count; i++) {
-                randomisedWeight -= weights[i];
+            for (int i = 0; i < count; i++) {
+                randomisedWeight -= ItemsList[i].weight;
                 if (randomisedWeight <= 0) {
-                    return objects[i];
+                    return ItemsList[i].item;
                 }
             }
 
-            return objects.Last();
+            return ItemsList.Last().item;
         }
 
         public bool GetRandomObjectWithCondition(Predicate<T> condition, out T obj) {
             WeightedList<T> listUnderConditions = new();
-            Validate();
-            for (int i = 0; i < Count; i++) {
-                if (condition(objects[i])) {
-                    listUnderConditions.Add(objects[i], weights[i]);
+            
+            for (int i = 0; i < count; i++) {
+                if (condition(ItemsList[i].item)) {
+                    listUnderConditions.Add(ItemsList[i]);
                 }
             }
 
-            if (listUnderConditions.Count == 0) {
+            if (listUnderConditions.count == 0) {
                 obj = default;
                 return false;
             }
             
             obj = listUnderConditions.GetRandomObject();
             return true;
+        }
+    }
+
+    [Serializable]
+    public class WeightedItem<T> {
+        [HorizontalGroup]
+        [SerializeField,HideLabel]
+        private T Item;
+        [HorizontalGroup]
+        [SerializeField, HideLabel, LabelWidth(20)]
+        private float Weight = 1;
+
+        public T item => Item;
+        public float weight => Weight;
+
+        public WeightedItem(T obj, float w) {
+            Item = obj;
+            Weight = w;
         }
     }
 }

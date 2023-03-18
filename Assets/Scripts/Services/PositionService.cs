@@ -18,26 +18,33 @@ namespace Services {
         private Vector3 _segmentEnd;
 
         private WorldTilesManager _tilesManager;
+
+        public Vector3 forwardVector {
+            get {
+                Vector3 direction = _segmentEnd - _segmentStart;
+                return direction;
+            }
+        }
+        
         public override void SetupService() {
-            _tilesManager = GameObject.FindObjectOfType<WorldTilesManager>();
+            _tilesManager = Object.FindObjectOfType<WorldTilesManager>();
             _tilesManager.InitialGeneration();
+            _segmentIndex = 0;
+            _subcurveIndex = 0;
+            _tileIndex = 0;
             _previousTile = null;
             _currentTile = _tilesManager.GetTile(0);
             _nextTile = _tilesManager.GetTile(1);
 
-            var characterManager = GameObject.FindObjectOfType<CharacterManager>();
-            //characterManager.transform.position = Vector3.zero;
-            _segmentIndex = 0;
-            _subcurveIndex = 0;
-            _tileIndex = 0;
+            var characterManager = Object.FindObjectOfType<CharacterManager>();
+            characterManager.transform.position = new Vector3(0, 0.1f,1);
 
             _segmentStart = _currentTile.transform.TransformPoint(_currentTile.Spline.Bezier(_subcurveIndex, (float)_segmentIndex / _currentTile.Density));
             _segmentEnd = _currentTile.transform.TransformPoint(_currentTile.Spline.Bezier(_subcurveIndex, (float)(_segmentIndex + 1) / _currentTile.Density));
 
             characterManager.StartMovement();
         }
-
-
+        
         public void ProcessNewPosition(Vector3 position) {
             var flatPosition = position.XZProjection();
             var flatStart = _segmentStart.XZProjection();
@@ -77,17 +84,7 @@ namespace Services {
             _nextTile = _tilesManager.GetTile(_tileIndex + 1);
             _tilesManager.EnterTile(_tileIndex);
 
-            if (_tileIndex + 3 > _tilesManager.LastTileIndex) {
-                _tilesManager.LoadNextTile();
-            }
             _tilesManager.RemoveTile(_tileIndex - 2);
-        }
-
-        public Vector3 ForwardVector {
-            get {
-                Vector3 direction = _segmentEnd - _segmentStart;
-                return direction;
-            }
         }
     }
 }

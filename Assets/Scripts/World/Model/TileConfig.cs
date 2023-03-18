@@ -1,39 +1,49 @@
 ﻿using System;
 using DataTypes;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace World.Model {
     [CreateAssetMenu(menuName = "Configs/Tile", order = 1, fileName = "Tile_NAME")]
     public class TileConfig : ScriptableObject {
-        [SerializeField]
-        private WeightedList<TileConfig> NextTileOptions;
-        [SerializeField]
-        private WeightedList<TrackObjectConfig> TrackObjectOptions;
+        [Title("Filling settings")]
+        [SerializeField] private WeightedList<TrackObjectConfig> TrackObjectOptions;
+        [PropertySpace(2)]
         [SerializeField]
         private GameObject TilePrefab;
+        [PropertySpace(2)]
+        [FoldoutGroup("Blanks")]
+        [SerializeField] private float InitialBlankSpace = 5f;
+        [FoldoutGroup("Blanks")]
+        [SerializeField] private float MinBlankSpace = 2f;
+        [FoldoutGroup("Blanks")]
+        [SerializeField] private float MaxBlankSpace = 5f;
+        
+        [PropertySpace(4), Title("End settings")]
+        [SerializeField] private WeightedList<TileConfig> NextTileOptions;
+        [Space(2)]
+        [SerializeField] private TileConfig NormalizingTile = null;
+        
+        [PropertySpace(4), Title("Extra")]
+        [SerializeField] private bool IsVisionBreaker = false;
+        
+        
+        
+        public GameObject prefab => TilePrefab;
 
-        [SerializeField]
-        private float _initialBlankSpace = 5f;
-        [SerializeField]
-        private float _minBlankSpace = 2f;
-        [SerializeField]
-        private float _maxBlankSpace = 5f;
-
-        [SerializeField] private TileConfig normalizingTile;
-
-        public float InitialBlankSpace => _initialBlankSpace;
-        public float MinBlankSpace => _minBlankSpace;
-        public float MaxBlankSpace => _maxBlankSpace;
-        public TileConfig NormalizingTile => normalizingTile;
-
-        public TileConfig GetNextTile() {
-            return NextTileOptions.GetRandomObject();
-        }
+        public float initialBlankSpace => InitialBlankSpace;
+        public float minBlankSpace => MinBlankSpace;
+        public float maxBlankSpace => MaxBlankSpace;
+        
+        public TileConfig normalizingTile => NormalizingTile;
+        public bool isVisionBreaker => IsVisionBreaker;
 
         public bool GetNextTrackObject(Predicate<TrackObjectConfig> condition, out TrackObjectConfig objConfig) {
             return TrackObjectOptions.GetRandomObjectWithCondition(condition, out objConfig);
         }
 
-        public GameObject prefab => TilePrefab;
+        public TileConfig GetNextTile() {
+            return NextTileOptions.GetRandomObject();
+        }
     }
 }

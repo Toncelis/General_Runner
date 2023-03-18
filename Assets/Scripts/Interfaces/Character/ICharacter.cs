@@ -2,15 +2,16 @@
 
 namespace DefaultNamespace.Interfaces.Character {
     public interface ICharacter {
-        public CharacterController CharacterController { get; }
-        public Transform Transform { get; }
-        public Animator Animator { get; }
+        public CharacterController characterController { get; }
+        public Transform characterTransform { get; }
+        public Animator animator { get; }
 
         public float forwardVelocity { get; }
         
-        
+        /*
         public Transform currentSpeedArrow { get; }
         public Transform normalArrow { get; }
         public Transform forwardArrow { get; }
+        */
     }
 }

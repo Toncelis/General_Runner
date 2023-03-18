@@ -15,7 +15,7 @@ namespace DefaultNamespace.Run.Actions {
         public void RunAction(Vector3 currentSpeed, ICharacter character, Action<Vector3> onEnd) {
             this.character = character;
             this.currentSpeed = currentSpeed;
-            lastFramePosition = character.Transform.position;
+            lastFramePosition = character.characterTransform.position;
 
             coroutine = CoroutineManager.CoroutineManagerSingleton.StartRoutine(ActionRoutine());
         }

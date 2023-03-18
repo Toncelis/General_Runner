@@ -1,112 +1,146 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DataTypes;
 using DefaultNamespace.Signals;
+using Services;
+using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace DefaultNamespace.Managers {
     public class RoomProgressionManager : MonoBehaviour {
-        public CollectablesSignal signal;
-        public StartSettings StartSettings;
+        [SerializeField] private StartSettings StartSettings;
+        
+        [PropertySpace(4),FoldoutGroup("ExternalDependencies")]
+        [SerializeField] private WorldTilesManager TilesManager;
+        [FoldoutGroup("ExternalDependencies")]
+        [SerializeField] private CollectablesSignal PickupSignal;
+        
+        [PropertySpace(4),FoldoutGroup("UI")]
+        [SerializeField] private RectTransform UIPanel;
+        [FoldoutGroup("UI")]
+        [SerializeField] private GameObject RoomGoalPrefab;
+        [FoldoutGroup("UI")]
+        [SerializeField] private float RoomGoalWidth;
+        [FoldoutGroup("UI")]
+        [SerializeField] private float RoomGoalSpace;
+
+        [PropertySpace(4),FoldoutGroup("Signals for service")]
+        [SerializeField] private CollectablesSignal LockCollectableSignal;
+        [FoldoutGroup("Signals for service")]
+        [SerializeField] private CollectablesSignal UnlockCollectableSignal;
+        
+        private CollectablesService collectablesService => ServiceLibrary.GetService<CollectablesService>();
+        
+        
+        private readonly Dictionary<RoomChangingRule, RoomGoal> _roomGoals = new();
         private RoomSettings _currentRoom;
-        public WorldTilesManager TilesManager;
+        private RoomChangingRule _activeChangeRule = null;
 
-        private Dictionary<CollectableTypes, int> _collectionProgress = new();
-        private Dictionary<RoomChangingRule, RoomGoal> _roomGoals = new();
+        #region Tracking room progress 
+        private void OnEnable() {
+            collectablesService.RegisterDependencies(PickupSignal, LockCollectableSignal, UnlockCollectableSignal);
+            PickupSignal.RegisterResponse(OnCollectablesSignal);
+            PrepareRoom(StartSettings.startingRoom);
+        }
 
-        public RectTransform UIPanel;
-        public GameObject RoomGoalPrefab;
-        public float RoomGoalWidth;
-        public float RoomGoalSpace;
+        private void OnDisable() {
+            PickupSignal.UnregisterResponse(OnCollectablesSignal);
+        }
 
-        private bool _collectablesLocked = false;
-
-        private void OnCollectablesSignal(CollectableTypes type) {
-            if (_collectablesLocked) {
+        private void OnCollectablesSignal(CollectableTypesEnum type) {
+            if (collectablesService.IsCollectableLocked(type)) {
                 return;
             }
 
-            _collectionProgress[type]++;
             RunRoomFinishedCheck(type);
         }
+        
+        private void PrepareRoom(RoomSettings room) {
+            foreach (var goal in _roomGoals) {
+                goal.Value.Hide(() => _roomGoals.Remove(goal.Key));
+            }
+            _roomGoals.Clear();
 
-        private void RunRoomFinishedCheck(CollectableTypes collectedType) {
-            foreach (var finishRule in _currentRoom.NextRooms) {
-                if (finishRule.Requirements.All(rule => _collectionProgress[rule.collectable] >= rule.amount)) {
+            int exitOptionsCount = room.nextRoomVariants.Count;
+            float offset = (exitOptionsCount - 1) * (RoomGoalSpace + RoomGoalWidth);
+            offset /= -2;
+
+            for (int i = 0; i < exitOptionsCount; i++) {
+                var roomGoal = Instantiate(RoomGoalPrefab, UIPanel).GetComponent<RoomGoal>();
+                roomGoal.Setup(Vector3.right * offset, room.nextRoomVariants[i]);
+                offset += RoomGoalWidth + RoomGoalSpace;
+                _roomGoals.Add(room.nextRoomVariants[i], roomGoal);
+            }
+
+            _currentRoom = room;
+
+            collectablesService.RefreshCollectables(_currentRoom);
+        }
+        
+        private void RunRoomFinishedCheck(CollectableTypesEnum collectedType) {
+            foreach (var finishRule in _currentRoom.nextRoomVariants) {
+                if (finishRule.requirements.All(requirement =>
+                        collectablesService.GetCollectedAmount(requirement.collectableType) >= requirement.requiredAmount
+                    )
+                   ) {
                     FinishRoom(finishRule);
                     return;
                 }
             }
 
-            foreach (var finishRule in _currentRoom.NextRooms) {
-                if (finishRule.Requirements.Any(rule => rule.collectable == collectedType)) {
+            foreach (var finishRule in _currentRoom.nextRoomVariants) {
+                if (finishRule.requirements.Any(rule => rule.collectableType == collectedType)) {
                     UpdateRuleIcon(finishRule);
                 }
             }
         }
-
+        
         private void FinishRoom(RoomChangingRule rule) {
             foreach (var ruleToGoal in _roomGoals) {
                 var (goalRule, goal) = ruleToGoal;
                 if (goalRule == rule) {
                     goal.ChangeFilling(0);
                     goal.ChangePosition(0);
-                    TilesManager.NormalizeAndLoadTile(rule.ChangerTile, () => PrepareRoom(rule.NextRoom));
+                    goal.HideSubGoals();
+                    _activeChangeRule = rule;
                 } else {
                     goal.Hide();
                 }
             }
-            _collectablesLocked = true;
+            collectablesService.LockCollection();
         }
-
-        private void PrepareRoom(RoomSettings room) {
-            foreach (var goal in _roomGoals) {
-                goal.Value.Hide(() => _roomGoals.Remove(goal.Key));
-            }
-            _collectablesLocked = false;
-            _collectionProgress.Clear();
-            _roomGoals.Clear();
-
-            int exitOptionsCount = room.NextRooms.Count;
-            float offset = (exitOptionsCount - 1) * (RoomGoalSpace + RoomGoalWidth);
-            offset /= -2;
-
-            for (int i = 0; i < exitOptionsCount; i++) {
-                var roomGoal = Instantiate(RoomGoalPrefab, UIPanel).GetComponent<RoomGoal>();
-                roomGoal.Setup(Vector3.right * offset, room.NextRooms[i]);
-                offset += RoomGoalWidth + RoomGoalSpace;
-                _roomGoals.Add(room.NextRooms[i], roomGoal);
-
-                foreach (var requirement in room.NextRooms[i].Requirements) {
-                    if (!_collectionProgress.ContainsKey(requirement.collectable)) {
-                        _collectionProgress.Add(requirement.collectable, 0);
-                    }
-                }
-            }
-
-            _currentRoom = room;
-        }
-
+        
         private void UpdateRuleIcon(RoomChangingRule rule) {
             float progression = 0;
             int requirementsCount = 0;
-            foreach (var requirement in rule.Requirements) {
+            foreach (var requirement in rule.requirements) {
                 requirementsCount++;
-                var type = requirement.collectable;
-                var amount = requirement.amount;
-                progression += (float)_collectionProgress[type] / amount;
+                var type = requirement.collectableType;
+                var amount = requirement.requiredAmount;
+                progression += (float)collectablesService.GetCollectedAmount(type) / amount;
             }
 
             var progress = Mathf.Min(1, progression / requirementsCount);
             _roomGoals[rule].ChangeFilling(1 - progress);
         }
-
-        private void OnEnable() {
-            signal.RegisterResponse(OnCollectablesSignal);
-            PrepareRoom(StartSettings.StartingRoom);
+        #endregion
+        
+        #region Loading new room
+        private void Update() {
+            if (_activeChangeRule != null) {
+                if (Input.GetKeyDown(KeyCode.LeftControl)) {
+                    LoadNextRoom(_activeChangeRule);
+                }
+            }
         }
 
-        private void OnDisable() {
-            signal.UnregisterResponse(OnCollectablesSignal);
+        private void LoadNextRoom(RoomChangingRule rule) {
+            _roomGoals.Values.ForEach(goal => goal.Hide());
+            TilesManager.NormalizeAndLoadTile(rule.changerTile, () => PrepareRoom(rule.nextRoom));
+            TilesManager.NormalizeAndLoadTile(rule.nextRoom.startRoadTile);
+            _activeChangeRule = null;
         }
+        #endregion
     }
 }

@@ -5,7 +5,6 @@ using DefaultNamespace.Interfaces.DataAccessors;
 using DefaultNamespace.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.UIElements;
 using World.Model;
 
 namespace DefaultNamespace.World.View {
@@ -59,23 +58,23 @@ namespace DefaultNamespace.World.View {
             };
             Transform holderTransform = contentHolder.transform;
             
-            float coveredLength = TileConfig.InitialBlankSpace;
+            float coveredLength = TileConfig.initialBlankSpace;
             while (coveredLength < _measuredSpline.Length) {
                 float freeLength = _measuredSpline.Length - coveredLength;
-                bool canFillObjWithBlankSpace = TileConfig.GetNextTrackObject(objConfig => objConfig.Length <= freeLength - TileConfig.MinBlankSpace, out var obj);
+                bool canFillObjWithBlankSpace = TileConfig.GetNextTrackObject(objConfig => objConfig.length <= freeLength - TileConfig.minBlankSpace, out var obj);
                 if (!canFillObjWithBlankSpace) {
-                    bool canFillLastObject = TileConfig.GetNextTrackObject(objConfig => objConfig.Length <= freeLength, out obj);
+                    bool canFillLastObject = TileConfig.GetNextTrackObject(objConfig => objConfig.length <= freeLength, out obj);
                     if (canFillLastObject) {
-                        PlaceObject(obj, Random.Range(coveredLength, _measuredSpline.Length - obj.Length), holderTransform);
+                        PlaceObject(obj, Random.Range(coveredLength, _measuredSpline.Length - obj.length), holderTransform);
                     }
                     break;
                 }
 
-                float extraFreeLength = freeLength - obj.Length;
-                float maxBlankSpace = Mathf.Min(extraFreeLength, TileConfig.MaxBlankSpace);
-                float positioningLength = coveredLength + Random.Range(TileConfig.MinBlankSpace, maxBlankSpace);
+                float extraFreeLength = freeLength - obj.length;
+                float maxBlankSpace = Mathf.Min(extraFreeLength, TileConfig.maxBlankSpace);
+                float positioningLength = coveredLength + Random.Range(TileConfig.minBlankSpace, maxBlankSpace);
                 PlaceObject(obj, positioningLength, holderTransform);
-                coveredLength = positioningLength + obj.Length;
+                coveredLength = positioningLength + obj.blockingLength;
             }
         }
 
@@ -90,16 +89,16 @@ namespace DefaultNamespace.World.View {
 
         private void PlaceObject(TrackObjectConfig obj, float positioningLength, Transform parent) {
             Debug.Log($"placing object : {obj.name}");
-            if (obj.Complex) {
-                foreach (var part in obj.ObjectParts) {
+            if (obj.complex) {
+                foreach (var part in obj.objectParts) {
                     PlaceObject(part, positioningLength, parent);
-                    positioningLength += part.Length;
+                    positioningLength += part.length;
                 }
                 return;
             }
 
             var (position, direction) = _measuredSpline.GetPositionAndDirection(positioningLength);
-            var newContent = Instantiate(obj.Prefab, parent);
+            var newContent = Instantiate(obj.prefab, parent);
             var contentManager = newContent.GetComponent<TrackObjectManager>();
             if (contentManager != null) {
                 contentManager.Setup(this, positioningLength);

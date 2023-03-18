@@ -1,43 +1,45 @@
 using System;
 using System.Collections.Generic;
+using DataTypes;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using World.Model;
 
 [CreateAssetMenu(menuName = "Configs/Room", order = 0, fileName = "Room_NAME")]
 public class RoomSettings : ScriptableObject {
-    public TileConfig StartRoadTile;
+    [SerializeField] private List<RoomChangingRule> NextRoomVariants;
+    [SerializeField] private Sprite RoomSprite;
 
-    public float MinTrackObjectBlanks;
-    public float MaxTrackObjectBlanks;
+    [PropertySpace(4), Title("Generation settings")]
+    [SerializeField] private TileConfig StartRoadTile;
 
-    public List<RoomChangingRule> NextRooms;
-    public Sprite RoomSprite;
+    public List<RoomChangingRule> nextRoomVariants => NextRoomVariants;
+    public Sprite roomSprite => RoomSprite;
+
+    public TileConfig startRoadTile => StartRoadTile;
 }
 
 [Serializable]
 public class RoomChangingRule {
     [SerializeField]
-    private RoomSettings nextRoom;
+    private RoomSettings NextRoom;
     [SerializeField]
-    private List<RoomChangeRequirement> requirements;
+    private List<RoomChangeRequirement> Requirements;
     [SerializeField]
-    private TileConfig changerTile;
+    private TileConfig ChangerTile;
 
-    public RoomSettings NextRoom => nextRoom;
-    public List<RoomChangeRequirement> Requirements => requirements;
-    public TileConfig ChangerTile => changerTile;
+    public RoomSettings nextRoom => NextRoom;
+    public List<RoomChangeRequirement> requirements => Requirements;
+    public TileConfig changerTile => ChangerTile;
 }
 
 [Serializable]
 public class RoomChangeRequirement {
-    public CollectableTypes collectable;
-    public int amount;
-}
+    [SerializeField, HorizontalGroup]
+    private CollectableTypesEnum CollectableType;
+    [SerializeField, HorizontalGroup, LabelWidth(40)]
+    private int RequiredAmount;
 
-public enum CollectableTypes {
-    primal,
-    secondary_1,
-    secondary_2,
-    secondary_3,
-    secondary_4
+    public CollectableTypesEnum collectableType => CollectableType;
+    public int requiredAmount => RequiredAmount;
 }
