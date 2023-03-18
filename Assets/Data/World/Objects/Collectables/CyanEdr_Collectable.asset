@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7783b73ff1a64ea99bdc21d763d2022f, type: 3}
+  m_Name: CyanEdr_Collectable
+  m_EditorClassIdentifier: 
+  View: {fileID: 3905666859690853372, guid: 38d0844196d9f63498d535b62dd3e312, type: 3}
+  Type: 1
+  Sprite: {fileID: 21300000, guid: fa6c2d1a4ab22dd488d4730c018cba6c, type: 3}
+  SpriteColor: {r: 0.14733891, g: 0.7264151, b: 0.23300105, a: 1}
+  LockedSignal: {fileID: 11400000, guid: 2731089d6bfda4b448bb189f28f7cfbf, type: 2}
+  UnlockedSignal: {fileID: 11400000, guid: f18da8515bc33c649adea1c5f5429488, type: 2}

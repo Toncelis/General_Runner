@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47f0e782de95cd9458acc0df03b0e192, type: 3}
+  m_Name: TutorialRoom
+  m_EditorClassIdentifier: 
+  NextRoomVariants:
+  - NextRoom: {fileID: 11400000, guid: 6ea8227662e4b66498647d669cd7e058, type: 2}
+    Requirements:
+    - CollectableType: 0
+      RequiredAmount: 20
+    - CollectableType: 1
+      RequiredAmount: 4
+    ChangerTile: {fileID: 0}
+  RoomSprite: {fileID: 0}
+  StartRoadTile: {fileID: 0}
