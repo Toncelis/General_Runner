@@ -6,6 +6,7 @@ using UnityEngine;
 namespace DefaultNamespace.Managers {
     public class CharacterManager : MonoBehaviour, ICharacter {
         [SerializeField] private Animator CharacterAnimator;
+        [SerializeField] private Transform CharacterTransform;
         [SerializeField] private CharacterController CharacterController;
 
         [SerializeField] private ScriptableSignal OnDeathSignal;
@@ -13,7 +14,7 @@ namespace DefaultNamespace.Managers {
         [SerializeField] private CharacterAction StandardAction;
 
         public CharacterController characterController => CharacterController;
-        public Transform characterTransform => transform;
+        public Transform characterTransform => CharacterTransform;
         public Animator animator => CharacterAnimator;
 
         public float forwardVelocity { get; }
