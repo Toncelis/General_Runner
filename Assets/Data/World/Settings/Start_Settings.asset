@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b963cba59da9ab4e8f92347d72da0c9, type: 3}
   m_Name: Start_Settings
   m_EditorClassIdentifier: 
-  startingRoom: {fileID: 11400000, guid: ba963182cd50d7e4fb900262461667ba, type: 2}
+  StartingRoom: {fileID: 11400000, guid: ba963182cd50d7e4fb900262461667ba, type: 2}
