@@ -1,4 +1,5 @@
-﻿using DefaultNamespace.Interfaces.Character;
+﻿using System;
+using DefaultNamespace.Interfaces.Character;
 using DefaultNamespace.Run.Actions;
 using DefaultNamespace.Signals;
 using UnityEngine;
@@ -18,7 +19,12 @@ namespace DefaultNamespace.Managers {
         public Animator animator => CharacterAnimator;
 
         public float forwardVelocity { get; }
-        
+
+        private void Start() {
+            CharacterTransform.position = new Vector3(0, 0.1f, 1);
+            StartMovement();
+        }
+
         public void StartMovement() {
             StandardAction.RunAction(Vector3.zero, this, null);
         }

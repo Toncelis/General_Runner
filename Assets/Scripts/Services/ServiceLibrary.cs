@@ -2,48 +2,51 @@
 using UnityEngine;
 
 namespace Services {
-    public class ServiceLibrary : MonoBehaviour {
+    public class ServiceLibrary {
         private static ServiceLibrary Instance;
-        private Dictionary<string, Service> _services;
+        private readonly Dictionary<string, Service> _services;
 
         public static T GetService<T>() where T : Service, new() {
             string type = typeof(T).ToString();
             if (!Instance._services.ContainsKey(type)) {
-                Instance.SetupService<T>(type);
+                Debug.LogError($"trying to access {type} service before it's initialisation");
+                return null;
             }
             return (T)Instance._services[type];
         }
 
-        private void Awake() {
-            if (Instance != null && Instance != this) {
-                Destroy(this.gameObject);
+        public static void SetupService<TService>(ISourceOfServiceDependencies sourceOfDependencies) where TService : Service, new() {
+            string type = typeof(TService).ToString();
+            if (Instance._services.ContainsKey(type)) {
+                Debug.LogWarning($"recreating {type}");
+                Instance._services[type].CloseService();
+                Instance._services.Remove(type);
             }
+            var service = new TService();
+            service.SetupService(sourceOfDependencies);
+            Instance._services.Add(type, service);
+        }
+        
+        public static ServiceLibrary InitLibrary() {
+            if (Instance != null) {
+                return Instance;
+            }
+            return new ServiceLibrary();
+        }
 
+        private ServiceLibrary() {
             Instance = this;
-        }
-
-        private void Start() {
-            SetupServices();
-        }
-
-        private void SetupServices() {
             _services = new();
-            GetService<PositionService>();
         }
 
-        private void SetupService<T>(string type) where T : Service, new() {
-            var service = new T();
-            _services.Add(type, service);
-            service.SetupService();
-        }
-
-        private void OnDestroy() {
+        public void ClearLibrary() {
             if (this == Instance) {
                 foreach (var service in _services.Values) {
                     service.CloseService();
                 }
 
                 _services.Clear();
+                Instance = null;
             }
         }
     }

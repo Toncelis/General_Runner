@@ -21,4 +21,4 @@ MonoBehaviour:
       RequiredAmount: 4
     ChangerTile: {fileID: 0}
   RoomSprite: {fileID: 0}
-  StartRoadTile: {fileID: 0}
+  StartRoadTile: {fileID: 11400000, guid: d084591705710d1498e34b09df1eb2ad, type: 2}

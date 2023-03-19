@@ -9,7 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b963cba59da9ab4e8f92347d72da0c9, type: 3}
-  m_Name: Start_Settings
+  m_Script: {fileID: 11500000, guid: 9f8b22e8064b478da4d82e8b6f1927f7, type: 3}
+  m_Name: CollectablesLine_Yellow
   m_EditorClassIdentifier: 
-  StartingRoom: {fileID: 11400000, guid: 56e5b5dccc9758248b53f7d9de0d4c0a, type: 2}
+  Complex: 0
+  Prefab: {fileID: 877430307235158812, guid: 0f55c8c5a9cf0154cab44fffcb0b7c61, type: 3}
+  ObjectParts: []
+  CustomBlockingDistance: 0
+  BlockingLength: 0
+  Length: 16

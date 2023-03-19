@@ -12,7 +12,6 @@ namespace DefaultNamespace.Managers {
         [SerializeField] private StartSettings StartSettings;
         
         [PropertySpace(4),FoldoutGroup("ExternalDependencies")]
-        [SerializeField] private WorldTilesManager TilesManager;
         [FoldoutGroup("ExternalDependencies")]
         [SerializeField] private CollectablesSignal PickupSignal;
         
@@ -25,21 +24,15 @@ namespace DefaultNamespace.Managers {
         [FoldoutGroup("UI")]
         [SerializeField] private float RoomGoalSpace;
 
-        [PropertySpace(4),FoldoutGroup("Signals for service")]
-        [SerializeField] private CollectablesSignal LockCollectableSignal;
-        [FoldoutGroup("Signals for service")]
-        [SerializeField] private CollectablesSignal UnlockCollectableSignal;
-        
         private CollectablesService collectablesService => ServiceLibrary.GetService<CollectablesService>();
-        
+        private WorldTilesService tilesService => ServiceLibrary.GetService<WorldTilesService>();
         
         private readonly Dictionary<RoomChangingRule, RoomGoal> _roomGoals = new();
         private RoomSettings _currentRoom;
         private RoomChangingRule _activeChangeRule = null;
 
         #region Tracking room progress 
-        private void OnEnable() {
-            collectablesService.RegisterDependencies(PickupSignal, LockCollectableSignal, UnlockCollectableSignal);
+        private void Start() {
             PickupSignal.RegisterResponse(OnCollectablesSignal);
             PrepareRoom(StartSettings.startingRoom);
         }
@@ -137,8 +130,8 @@ namespace DefaultNamespace.Managers {
 
         private void LoadNextRoom(RoomChangingRule rule) {
             _roomGoals.Values.ForEach(goal => goal.Hide());
-            TilesManager.NormalizeAndLoadTile(rule.changerTile, () => PrepareRoom(rule.nextRoom));
-            TilesManager.NormalizeAndLoadTile(rule.nextRoom.startRoadTile);
+            tilesService.NormalizeAndLoadTile(rule.changerTile, () => PrepareRoom(rule.nextRoom));
+            tilesService.NormalizeAndLoadTile(rule.nextRoom.startRoadTile);
             _activeChangeRule = null;
         }
         #endregion

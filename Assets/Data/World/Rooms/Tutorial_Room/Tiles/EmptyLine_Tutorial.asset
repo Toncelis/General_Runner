@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a701ba4af6248feb6f529ac732a8eee, type: 3}
+  m_Name: EmptyLine_Tutorial
+  m_EditorClassIdentifier: 
+  TrackObjectOptions:
+    ItemsList: []
+  TilePrefab: {fileID: 3429840922847508006, guid: 7fb62b4c062f5f94f818240f98212bd1,
+    type: 3}
+  InitialBlankSpace: 5
+  MinBlankSpace: 2
+  MaxBlankSpace: 5
+  NextTileOptions:
+    ItemsList:
+    - Item: {fileID: 11400000, guid: bbe1dc596553a394e8040dbe2a40f853, type: 2}
+      Weight: 1
+  NormalizingTile: {fileID: 0}
+  IsVisionBreaker: 0

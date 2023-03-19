@@ -9,7 +9,7 @@ namespace DataTypes {
     [Serializable]
     public class WeightedList<T> {
         [SerializeField, LabelText("Weighted list")]
-        private List<WeightedItem<T>> ItemsList;
+        private List<WeightedItem<T>> ItemsList = new();
 
         public int count => ItemsList?.Count ?? 0;
 

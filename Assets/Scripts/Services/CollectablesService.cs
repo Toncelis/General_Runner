@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DataTypes;
 using DefaultNamespace.Signals;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace Services {
@@ -15,12 +16,12 @@ namespace Services {
 
         private bool _lockCollection = false;
 
-        public override void SetupService() {}
+        public override void SetupService(ISourceOfServiceDependencies source) {
+            _pickupSignal = source.collectablePickup;
+            _lockCollectableSignal = source.collectableLocked;
+            _unlockCollectableSignal = source.collectableUnlocked;
 
-        public void RegisterDependencies(CollectablesSignal pickupSignal, CollectablesSignal lockCollectableSignal, CollectablesSignal unlockCollectableSignal) {
-            _pickupSignal = pickupSignal;
-            _lockCollectableSignal = lockCollectableSignal;
-            _unlockCollectableSignal = unlockCollectableSignal;
+            source.allCollectables.ForEach(RegisterCollectable);
         }
 
         public void RefreshCollectables(RoomSettings currentRoom) {
@@ -50,6 +51,7 @@ namespace Services {
                     } else {
                         _currentCollection.Add(type, 0);
                         _maxCollection.Add(type, requiredAmount);
+                        _unlockCollectableSignal.Fire(type);
                     }
                 }
             }
@@ -66,6 +68,9 @@ namespace Services {
         }
         
         public bool IsCollectableLocked(CollectableTypesEnum type) {
+            if (!_maxCollection.ContainsKey(type)) {
+                return true;
+            }
             return _lockCollection || _maxCollection[type] <= _currentCollection[type];
         }
 
@@ -77,7 +82,7 @@ namespace Services {
             }
         }
 
-        public void RegisterCollectable(CollectableData collectable) {
+        private void RegisterCollectable(CollectableData collectable) {
             if (_collectables.ContainsKey(collectable.type)) {
                 return;
             }

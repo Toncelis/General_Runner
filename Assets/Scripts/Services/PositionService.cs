@@ -17,7 +17,7 @@ namespace Services {
         private Vector3 _segmentStart;
         private Vector3 _segmentEnd;
 
-        private WorldTilesManager _tilesManager;
+        private WorldTilesService tilesService => ServiceLibrary.GetService<WorldTilesService>();
 
         public Vector3 forwardVector {
             get {
@@ -26,23 +26,17 @@ namespace Services {
             }
         }
         
-        public override void SetupService() {
-            _tilesManager = Object.FindObjectOfType<WorldTilesManager>();
-            _tilesManager.InitialGeneration();
+        public override void SetupService(ISourceOfServiceDependencies source) {
+            tilesService.InitialGeneration();
             _segmentIndex = 0;
             _subcurveIndex = 0;
             _tileIndex = 0;
             _previousTile = null;
-            _currentTile = _tilesManager.GetTile(0);
-            _nextTile = _tilesManager.GetTile(1);
-
-            var characterManager = Object.FindObjectOfType<CharacterManager>();
-            characterManager.transform.position = new Vector3(0, 0.1f,1);
+            _currentTile = tilesService.GetTile(0);
+            _nextTile = tilesService.GetTile(1);
 
             _segmentStart = _currentTile.transform.TransformPoint(_currentTile.Spline.Bezier(_subcurveIndex, (float)_segmentIndex / _currentTile.Density));
             _segmentEnd = _currentTile.transform.TransformPoint(_currentTile.Spline.Bezier(_subcurveIndex, (float)(_segmentIndex + 1) / _currentTile.Density));
-
-            characterManager.StartMovement();
         }
         
         public void ProcessNewPosition(Vector3 position) {
@@ -81,10 +75,10 @@ namespace Services {
             _previousTile = _currentTile;
             _currentTile = _nextTile;
             _tileIndex++;
-            _nextTile = _tilesManager.GetTile(_tileIndex + 1);
-            _tilesManager.EnterTile(_tileIndex);
+            _nextTile = tilesService.GetTile(_tileIndex + 1);
+            tilesService.EnterTile(_tileIndex);
 
-            _tilesManager.RemoveTile(_tileIndex - 2);
+            tilesService.RemoveTile(_tileIndex - 2);
         }
     }
 }

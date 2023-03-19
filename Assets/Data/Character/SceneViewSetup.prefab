@@ -596,9 +596,8 @@ Transform:
   - {fileID: 9051824966000026466}
   - {fileID: 2269653178247886576}
   - {fileID: 4570140606174177234}
-  - {fileID: 1022672128455837588}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1815349849730079682
 GameObject:
@@ -1161,7 +1160,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2507879486961051417}
-  m_LocalRotation: {x: 0.17191942, y: -0.000000023971197, z: 0.000000004183401, w: 0.98511106}
+  m_LocalRotation: {x: 0.17191942, y: 0.000000023971193, z: -0.0000000041834007, w: 0.98511106}
   m_LocalPosition: {x: 0, y: 5, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1407,7 +1406,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2507879487572426839}
-  m_LocalRotation: {x: 0.17191942, y: -0.000000023971197, z: 0.000000004183401, w: 0.98511106}
+  m_LocalRotation: {x: 0.17191942, y: 0.000000023971193, z: -0.0000000041834007, w: 0.98511106}
   m_LocalPosition: {x: 0, y: 5, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1575,50 +1574,6 @@ Transform:
   m_Father: {fileID: 5207582640360015550}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3302010358450206849
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1022672128455837588}
-  - component: {fileID: 6912179082940421260}
-  m_Layer: 0
-  m_Name: ServicesHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1022672128455837588
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3302010358450206849}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5207582640360015550}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6912179082940421260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3302010358450206849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04737e6b62994a8ea3923fcd75ecb0ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4102755218502696255
 GameObject:
   m_ObjectHideFlags: 0
@@ -2130,6 +2085,7 @@ GameObject:
   - component: {fileID: 7284058207201993412}
   - component: {fileID: 6923522777396257377}
   - component: {fileID: 9089742303328491948}
+  - component: {fileID: 8311957003219359447}
   m_Layer: 0
   m_Name: ManagerHolder
   m_TagString: Untagged
@@ -2194,15 +2150,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartSettings: {fileID: 11400000, guid: 1f99db6e356ca5441919a5fe72558675, type: 2}
-  TilesManager: {fileID: 9158372656131692773}
   PickupSignal: {fileID: 11400000, guid: ca0e79675e070dd43998e3783beab5b0, type: 2}
   UIPanel: {fileID: 7824916583666907643}
   RoomGoalPrefab: {fileID: 4349718634670366695, guid: fe36650b5f66f3845bca15df60b09302,
     type: 3}
   RoomGoalWidth: 100
   RoomGoalSpace: 100
-  LockCollectableSignal: {fileID: 0}
-  UnlockCollectableSignal: {fileID: 0}
 --- !u!114 &9089742303328491948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2220,6 +2173,31 @@ MonoBehaviour:
   RestartButton: {fileID: 2523511793220090461}
   OnDeathSignal: {fileID: 11400000, guid: ba46473964d32ea40af86977010f6b53, type: 2}
   StartMenuSceneName: TempStartMenu
+--- !u!114 &8311957003219359447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7143502670456377089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1e8c2848fe64cb6a1beb60aed0a7965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartSettings: {fileID: 11400000, guid: 1f99db6e356ca5441919a5fe72558675, type: 2}
+  VisibilityDistance: 150
+  RoadHolder: {fileID: 2269653178247886576}
+  AllCollectables:
+  - {fileID: 11400000, guid: d0a01d0a643f53f45982816d24c1a2a3, type: 2}
+  - {fileID: 11400000, guid: 79e7147386baa3443a076d6a4c8e84c8, type: 2}
+  - {fileID: 11400000, guid: 7f96c00fe99e7184aa8dd92afd4d5655, type: 2}
+  - {fileID: 11400000, guid: 3992ef562a5f8514d98c9e7aac47f2da, type: 2}
+  - {fileID: 11400000, guid: 2268dccec15f93d448f3a5051206984d, type: 2}
+  CollectablePickup: {fileID: 11400000, guid: ca0e79675e070dd43998e3783beab5b0, type: 2}
+  CollectableLocked: {fileID: 11400000, guid: 2731089d6bfda4b448bb189f28f7cfbf, type: 2}
+  CollectableUnlocked: {fileID: 11400000, guid: f18da8515bc33c649adea1c5f5429488,
+    type: 2}
 --- !u!1 &7726235052502006388
 GameObject:
   m_ObjectHideFlags: 0
@@ -2229,7 +2207,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2269653178247886576}
-  - component: {fileID: 9158372656131692773}
   m_Layer: 0
   m_Name: MainRoad
   m_TagString: Untagged
@@ -2252,20 +2229,6 @@ Transform:
   m_Father: {fileID: 5207582640360015550}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9158372656131692773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7726235052502006388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3aeca61fa78c4df78845a929787f2f33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartSettings: {fileID: 11400000, guid: 1f99db6e356ca5441919a5fe72558675, type: 2}
-  VisibilityDistance: 200
 --- !u!1 &8688060163510092230
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,5 @@
 ﻿using DefaultNamespace.Signals;
 using DefaultNamespace.World.View;
-using Services;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -26,9 +25,5 @@ namespace DataTypes {
 
         public CollectablesSignal lockedSignal => LockedSignal;
         public CollectablesSignal unlockedSignal => UnlockedSignal;
-
-        private void OnEnable() {
-            ServiceLibrary.GetService<CollectablesService>().RegisterCollectable(this);
-        }
     }
 }

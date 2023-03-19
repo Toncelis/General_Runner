@@ -358,8 +358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b98f2de6b9b402fba6264d16c743bc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goalImage: {fileID: 4349718633102405439}
-  goalProgressBar: {fileID: 4349718634604133915}
+  GoalImage: {fileID: 4349718633102405439}
+  GoalProgressBar: {fileID: 4349718634604133915}
   SubGoalsPanel: {fileID: 3058311277875854362}
   SubGoalPrefab: {fileID: 5247621495532016065, guid: c2dbf7e6485b94a47806b9a41ef1b9f2,
     type: 3}

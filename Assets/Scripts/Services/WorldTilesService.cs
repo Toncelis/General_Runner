@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using DefaultNamespace.World.View;
 using Extensions;
+using Services;
 using UnityEngine;
 using World.Model;
+using Object = UnityEngine.Object;
 
 namespace DefaultNamespace.Managers {
-    public class WorldTilesManager : MonoBehaviour {
-        [SerializeField] private StartSettings StartSettings;
-        [SerializeField] private float VisibilityDistance;
+    public class WorldTilesService : Service {
+        private StartSettings _startSettings;
+        private float _visibilityDistance;
+        private Transform _roadHolder;
 
         private readonly Dictionary<int, TileView> _generatedTiles = new();
         private readonly Dictionary<int, Action> _onTileEnter = new();
@@ -18,6 +21,12 @@ namespace DefaultNamespace.Managers {
 
         private int LastTileIndex => _lastTileIndex;
         private TileView lastTile => _generatedTiles[LastTileIndex];
+
+        public override void SetupService (ISourceOfServiceDependencies source) {
+            _startSettings = source.startSettings;
+            _visibilityDistance = source.visibilityDistance;
+            _roadHolder = source.roadHolder;
+        }
 
         public TileView GetTile(int index) {
             if (_generatedTiles.ContainsKey(index)) {
@@ -33,14 +42,14 @@ namespace DefaultNamespace.Managers {
                 _onTileEnter[tileIndex]();
             }
             
-            GenerateTilesToCoverVisibleDistance(tileIndex, VisibilityDistance);
+            GenerateTilesToCoverVisibleDistance(tileIndex, _visibilityDistance);
         }
         
         public void InitialGeneration() {
-            _roomSettings = StartSettings.startingRoom;
+            _roomSettings = _startSettings.startingRoom;
             GenerateTile(_roomSettings.startRoadTile, Vector3.zero, Vector3.forward);
 
-            GenerateTilesToCoverVisibleDistance(0, VisibilityDistance);
+            GenerateTilesToCoverVisibleDistance(0, _visibilityDistance);
         }
 
         private void GenerateTilesToCoverVisibleDistance(int currentTileIndex, float visibilityRange) {
@@ -83,7 +92,7 @@ namespace DefaultNamespace.Managers {
         private void GenerateTile(TileConfig tileConfig, Vector3 position, Vector3 flatDirection) {
             _lastTileIndex++;
 
-            var tileObject = Instantiate(tileConfig.prefab, transform);
+            var tileObject = Object.Instantiate(tileConfig.prefab, _roadHolder);
             tileObject.name = $"{tileConfig.name}_{_lastTileIndex}";
             tileObject.transform.position = position;
             tileObject.transform.forward = flatDirection;

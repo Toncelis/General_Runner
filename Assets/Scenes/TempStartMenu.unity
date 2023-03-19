@@ -237,10 +237,10 @@ MonoBehaviour:
   StartSettings: {fileID: 11400000, guid: 1f99db6e356ca5441919a5fe72558675, type: 2}
   MainScene: SampleScene
   RoomsArray:
-  - {fileID: 11400000, guid: a38aefae7c73fbe4fb97b5ba0c985f07, type: 2}
-  - {fileID: 11400000, guid: c11d8e7fceea36440a9390151dff1d64, type: 2}
-  - {fileID: 11400000, guid: a0e58d371e2f5e54b9df0bfb24cb457c, type: 2}
-  - {fileID: 11400000, guid: ba963182cd50d7e4fb900262461667ba, type: 2}
+  - {fileID: 11400000, guid: 56e5b5dccc9758248b53f7d9de0d4c0a, type: 2}
+  - {fileID: 11400000, guid: 56e5b5dccc9758248b53f7d9de0d4c0a, type: 2}
+  - {fileID: 11400000, guid: 56e5b5dccc9758248b53f7d9de0d4c0a, type: 2}
+  - {fileID: 11400000, guid: 56e5b5dccc9758248b53f7d9de0d4c0a, type: 2}
 --- !u!4 &122545147
 Transform:
   m_ObjectHideFlags: 0
