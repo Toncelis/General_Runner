@@ -9,6 +9,7 @@ using World.Model;
 public class RoomSettings : ScriptableObject {
     [SerializeField] private List<RoomChangingRule> NextRoomVariants;
     [SerializeField] private Sprite RoomSprite;
+    [SerializeField] private RoomScriptableBehaviour Behaviour;
 
     [PropertySpace(4), Title("Generation settings")]
     [SerializeField] private TileConfig StartRoadTile;
@@ -17,6 +18,7 @@ public class RoomSettings : ScriptableObject {
     public Sprite roomSprite => RoomSprite;
 
     public TileConfig startRoadTile => StartRoadTile;
+    public RoomScriptableBehaviour behaviour => Behaviour;
 }
 
 [Serializable]

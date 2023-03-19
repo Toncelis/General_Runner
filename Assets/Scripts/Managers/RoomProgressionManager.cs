@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataTypes;
 using DefaultNamespace.Signals;
@@ -69,6 +70,7 @@ namespace DefaultNamespace.Managers {
             _currentRoom = room;
 
             collectablesService.RefreshCollectables(_currentRoom);
+            _currentRoom.behaviour?.Play();
         }
         
         private void RunRoomFinishedCheck(CollectableTypesEnum collectedType) {
@@ -130,7 +132,12 @@ namespace DefaultNamespace.Managers {
 
         private void LoadNextRoom(RoomChangingRule rule) {
             _roomGoals.Values.ForEach(goal => goal.Hide());
-            tilesService.NormalizeAndLoadTile(rule.changerTile, () => PrepareRoom(rule.nextRoom));
+            Action onRoomChange;
+            onRoomChange = () => PrepareRoom(rule.nextRoom);
+            if (_currentRoom.behaviour != null) {
+                onRoomChange += () => _currentRoom.behaviour.Stop();
+            }
+            tilesService.NormalizeAndLoadTile(rule.changerTile, onRoomChange);
             tilesService.NormalizeAndLoadTile(rule.nextRoom.startRoadTile);
             _activeChangeRule = null;
         }
