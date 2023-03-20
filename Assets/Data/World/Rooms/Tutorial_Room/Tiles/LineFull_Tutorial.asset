@@ -10,18 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a701ba4af6248feb6f529ac732a8eee, type: 3}
-  m_Name: EmptyLine_Tutorial
+  m_Name: LineFull_Tutorial
   m_EditorClassIdentifier: 
   TrackObjectOptions:
-    ItemsList: []
+    ItemsList:
+    - Item: {fileID: 11400000, guid: c55ca2f3fd6c7cd458f5cebd9a634dc4, type: 2}
+      Weight: 4
+    - Item: {fileID: 11400000, guid: a011c565f2ead124eae0d4ce2479c646, type: 2}
+      Weight: 1
   TilePrefab: {fileID: 6863564911483441792, guid: ea83b54649512864a90686024c9e3119,
     type: 3}
   InitialBlankSpace: 5
-  MinBlankSpace: 2
-  MaxBlankSpace: 5
+  MinBlankSpace: 5
+  MaxBlankSpace: 10
   NextTileOptions:
     ItemsList:
-    - Item: {fileID: 11400000, guid: bbe1dc596553a394e8040dbe2a40f853, type: 2}
+    - Item: {fileID: 11400000}
       Weight: 1
+    - Item: {fileID: 11400000, guid: e5c561a96df35c148be3d47f5dd1c66c, type: 2}
+      Weight: 2
+    - Item: {fileID: 11400000, guid: de85712a6646c654c8dbe5d3d3fe5802, type: 2}
+      Weight: 2
   NormalizingTile: {fileID: 0}
   IsVisionBreaker: 0

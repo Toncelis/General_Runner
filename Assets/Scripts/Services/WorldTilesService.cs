@@ -7,7 +7,7 @@ using UnityEngine;
 using World.Model;
 using Object = UnityEngine.Object;
 
-namespace DefaultNamespace.Managers {
+namespace DefaultNamespace.Services {
     public class WorldTilesService : Service {
         private StartSettings _startSettings;
         private float _visibilityDistance;

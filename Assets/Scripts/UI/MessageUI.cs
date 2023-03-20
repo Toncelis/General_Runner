@@ -1,6 +1,9 @@
+using System;
 using DG.Tweening;
+using Extensions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MessageUI : MonoBehaviour {
     public Transform TotalMessagePanel;
@@ -8,10 +11,14 @@ public class MessageUI : MonoBehaviour {
     public Transform MovingPart;
     public Transform MovingMask;
     public Transform StationaryPart;
+    public Image SpeakerIcon;
 
     public TMP_Text MessageText;
 
     public float SymbolsPerSecond;
+    public float TimeToOpenIcon;
+
+    public RectMask2D TextMask;
 
     private Vector3 _maskOffset;
     private Vector3 _stationaryOffset;
@@ -22,34 +29,89 @@ public class MessageUI : MonoBehaviour {
     private string _currentMessage;
     private int _symbolsToDisplay;
 
-    public void ShowMessageBoard() {
-        TotalMessagePanel.DOMoveY(120, 1).OnUpdate(UpdatePositions);
-    }
+    private bool _textIsShown;
+    private bool _messageBoardIsShown;
 
-    public void HideMessageBoard() {
-        TotalMessagePanel.DOMoveY(_totalPanelStartPosition.y, 2).OnUpdate(UpdatePositions);
-    }
+    private Tween _textTween = null;
 
-    public void ShowMessage(string message) {
-        SetText(message);
-        DOTween.To(() => _symbolsToDisplay, x => _symbolsToDisplay = x, _currentMessage.Length + 4, _currentMessage.Length / SymbolsPerSecond).OnUpdate(UpdateText);
+    public void DisplayMessage(string text, Sprite speaker) {
+        var fullSequence = DOTween.Sequence();
+        if (!_messageBoardIsShown) {
+            fullSequence.Append(ShowMessageBoard());
+        }
+
+        fullSequence.Append(OpenIcon(speaker));
+        fullSequence.Append(ShowMessage(text));
+
+        fullSequence.AppendInterval(2f);
+        fullSequence.Append(CloseIcon());
+        fullSequence.Join(HideMessageBoard());
     }
     
-    private Tween OpenIcon(float duration) {
-        return MovingPart.DOMoveX(_movingPartStartPosition.x - 100, duration).OnUpdate(UpdatePositions);
+    private Tween ShowMessageBoard() {
+        return TotalMessagePanel.DOMoveY(120, 1).OnUpdate(UpdatePositions).OnComplete(() => _messageBoardIsShown = true);
     }
 
-
-    private Tween CloseIcon(float duration) {
-        return MovingPart.DOMoveX(_movingPartStartPosition.x, duration).OnUpdate(UpdatePositions);
+    private Tween HideMessageBoard() {
+        return TotalMessagePanel.DOMoveY(_totalPanelStartPosition.y, 2).OnUpdate(UpdatePositions).OnStart(() => _messageBoardIsShown = false);
     }
-    
+
+    private Tween ShowMessage(string message) {
+        if (_textTween != null) {
+            _textTween.Kill();
+        }
+        
+        var sequence = DOTween.Sequence();
+        if (_currentMessage != message) {
+            if (_textIsShown) {
+                sequence.Append(
+                    HideMessage().OnComplete(() => SetText(message))
+                );
+            } else {
+                SetText(message);
+            }
+        }
+        return _textTween = DOTween.To(() => _symbolsToDisplay, x => _symbolsToDisplay = x, _currentMessage.Length + 4, _currentMessage.Length / SymbolsPerSecond)
+            .OnUpdate(UpdateText)
+            .OnComplete(()=>_textTween = null)
+            .OnKill(()=>_textTween = null);
+    }
+
+    private Tween HideMessage() {
+        return DOTween.To(() => TextMask.padding.z, x => TextMask.padding = TextMask.padding.WithW(0), 0, 0.5f).OnComplete(ResetText);
+    }
+
+    private Tween OpenIcon(Sprite icon) {
+        MovingPart.DOKill();
+        if (icon != SpeakerIcon.sprite) {
+            Sequence sequence = DOTween.Sequence()
+                .Append(CloseIcon().OnComplete(() => SwapIcon(icon)).OnUpdate(UpdatePositions))
+                .Append(MovingPart.DOMoveX(_movingPartStartPosition.x - 100, TimeToOpenIcon).OnUpdate(UpdatePositions));
+            return sequence;
+        } else {
+            return MovingPart.DOMoveX(_movingPartStartPosition.x - 100, TimeToOpenIcon).OnUpdate(UpdatePositions);
+        }
+    }
+
+    private void SwapIcon(Sprite icon) {
+        SpeakerIcon.sprite = icon;
+    }
+
+    private Tween CloseIcon() {
+        return MovingPart.DOMoveX(_movingPartStartPosition.x, TimeToOpenIcon).OnUpdate(UpdatePositions);
+    }
+
     private void SetText(string text) {
         _currentMessage = text;
         _symbolsToDisplay = -1;
         UpdateText();
     }
-    
+
+    private void ResetText() {
+        TextMask.padding = TextMask.padding.WithW(110);
+        SetText("");
+    }
+
     private void UpdateText() {
         var currentText = "";
         if (_symbolsToDisplay > 3) {
@@ -72,7 +134,7 @@ public class MessageUI : MonoBehaviour {
         }
         MessageText.text = currentText;
     }
-    
+
     private void OnEnable() {
         _movingPartStartPosition = MovingPart.position;
         _totalPanelStartPosition = TotalMessagePanel.position;
@@ -85,17 +147,5 @@ public class MessageUI : MonoBehaviour {
     private void UpdatePositions() {
         MovingMask.position = MovingPart.position + _maskOffset;
         StationaryPart.position = TotalMessagePanel.position + _stationaryOffset;
-    }
-
-    private void TestMove() {
-        SetText("hello! testing communication here!\nDo you copy?");
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(TotalMessagePanel.DOMoveY(120, 1));
-        sequence.AppendInterval(1);
-        sequence.Append(OpenIcon(1));
-        sequence.AppendInterval(1);
-        sequence.Join(DOTween.To(() => _symbolsToDisplay, x => _symbolsToDisplay = x, _currentMessage.Length + 4, _currentMessage.Length / SymbolsPerSecond).OnUpdate(UpdateText));
-        sequence.Append(CloseIcon(1));
-        sequence.Join(TotalMessagePanel.DOMoveY(_totalPanelStartPosition.y, 2));
     }
 }

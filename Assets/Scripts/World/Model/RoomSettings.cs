@@ -4,6 +4,7 @@ using DataTypes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using World.Model;
+using World.RoomBehaviour;
 
 [CreateAssetMenu(menuName = "Configs/Room", order = 0, fileName = "Room_NAME")]
 public class RoomSettings : ScriptableObject {

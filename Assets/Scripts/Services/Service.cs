@@ -20,5 +20,7 @@ namespace Services {
         public CollectablesSignal collectableUnlocked { get; }
         
         public CollectableData[] allCollectables { get; }
+        
+        public MessageUI messageUI { get; }
     }
 }

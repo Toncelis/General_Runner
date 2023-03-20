@@ -17,11 +17,11 @@ namespace DefaultNamespace.Run.Actions {
             this.currentSpeed = currentSpeed;
             lastFramePosition = character.characterTransform.position;
 
-            coroutine = CoroutineManager.CoroutineManagerSingleton.StartRoutine(ActionRoutine());
+            coroutine = CoroutineManager.Instance.StartRoutine(ActionRoutine());
         }
 
         public Vector3 StopAction() {
-            CoroutineManager.CoroutineManagerSingleton.StopRoutine(coroutine);
+            CoroutineManager.Instance.StopRoutine(coroutine);
             return currentSpeed;
         }
 

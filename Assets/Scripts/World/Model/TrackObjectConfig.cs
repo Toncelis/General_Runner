@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using DataTypes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -26,5 +27,13 @@ namespace World.Model {
         public float length => Complex ? ObjectParts.Sum(part => part.length) : Length;
 
         public float blockingLength => CustomBlockingDistance ? BlockingLength : Complex ? ObjectParts.Sum(part => part.blockingLength) : Length;
+        
+        [SerializeField] private bool UseDiscreteOffsetValues = false;
+        [SerializeField, ShowIf(nameof(UseDiscreteOffsetValues))]
+        private WeightedList<float> OffsetVariantsList;
+        [SerializeField, HideIf(nameof(UseDiscreteOffsetValues))]
+        private float OffsetRange = 0;
+        
+        public float offsetRange => UseDiscreteOffsetValues ? OffsetVariantsList.GetRandomObject() : Random.Range(-OffsetRange, OffsetRange);
     }
 }

@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace DefaultNamespace.Managers {
     public class CoroutineManager : MonoBehaviour {
-        private static CoroutineManager _coroutineManagerSingleton;
-        public static CoroutineManager CoroutineManagerSingleton => _coroutineManagerSingleton;
+        private static CoroutineManager _instance;
+        public static CoroutineManager Instance => _instance;
 
         private void OnEnable() {
-            if (CoroutineManagerSingleton == null) {
-                _coroutineManagerSingleton = this;
+            if (Instance == null) {
+                _instance = this;
             } else {
                 Destroy(gameObject);
             }

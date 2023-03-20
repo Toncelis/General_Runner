@@ -1,5 +1,5 @@
 ﻿using DefaultNamespace.EditorTools.Splines;
-using DefaultNamespace.Managers;
+using DefaultNamespace.Services;
 using DefaultNamespace.World.View;
 using Extensions;
 using UnityEngine;

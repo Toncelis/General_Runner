@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using DataTypes;
+using DefaultNamespace.Services;
 using DefaultNamespace.Signals;
 using Services;
 using Sirenix.OdinInspector;
@@ -10,9 +11,13 @@ namespace DefaultNamespace.Managers {
         [SerializeField] private StartSettings StartSettings;
         [SerializeField] private float VisibilityDistance;
         [SerializeField] private Transform RoadHolder;
+
+        [SerializeField] private MessageUI MessageUI;
+        
         public StartSettings startSettings => StartSettings;
         public float visibilityDistance => VisibilityDistance;
         public Transform roadHolder => RoadHolder;
+        public MessageUI messageUI => MessageUI;
 
         [Space(4)]
         [SerializeField] private CollectableData[] AllCollectables;
@@ -35,6 +40,7 @@ namespace DefaultNamespace.Managers {
             ServiceLibrary.SetupService<PositionService>(this);
 
             ServiceLibrary.SetupService<CollectablesService>(this);
+            ServiceLibrary.SetupService<MessagesService>(this);
         }
 
         public void OnDisable() {

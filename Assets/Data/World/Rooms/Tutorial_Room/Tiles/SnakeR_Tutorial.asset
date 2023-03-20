@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a701ba4af6248feb6f529ac732a8eee, type: 3}
-  m_Name: Line_Tutorial
+  m_Name: SnakeR_Tutorial
   m_EditorClassIdentifier: 
   TrackObjectOptions:
     ItemsList:
-    - Item: {fileID: 11400000, guid: 16f4ae7e81832694fb7b28573a2c2766, type: 2}
+    - Item: {fileID: 11400000, guid: c55ca2f3fd6c7cd458f5cebd9a634dc4, type: 2}
+      Weight: 4
+    - Item: {fileID: 11400000, guid: a011c565f2ead124eae0d4ce2479c646, type: 2}
       Weight: 1
-  TilePrefab: {fileID: 6863564911483441792, guid: ea83b54649512864a90686024c9e3119,
+  TilePrefab: {fileID: 4409074274663132975, guid: 9c64a84438096734a9515b8f205cb31e,
     type: 3}
   InitialBlankSpace: 5
   MinBlankSpace: 5
@@ -25,5 +27,9 @@ MonoBehaviour:
     ItemsList:
     - Item: {fileID: 11400000}
       Weight: 1
+    - Item: {fileID: 11400000, guid: e5c561a96df35c148be3d47f5dd1c66c, type: 2}
+      Weight: 2
+    - Item: {fileID: 11400000, guid: e11a4e44c0282a448aa45d031ebc0db9, type: 2}
+      Weight: 2
   NormalizingTile: {fileID: 0}
   IsVisionBreaker: 0

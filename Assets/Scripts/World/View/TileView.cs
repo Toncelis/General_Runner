@@ -3,6 +3,7 @@ using DefaultNamespace.EditorTools;
 using DefaultNamespace.EditorTools.Splines;
 using DefaultNamespace.Interfaces.DataAccessors;
 using DefaultNamespace.Managers;
+using Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using World.Model;
@@ -14,7 +15,6 @@ namespace DefaultNamespace.World.View {
 
         public Spline Spline => _spline;
         public int Density;
-        public TileConfig TileConfig;
 
         public Vector3 exitDirectionLocal => Spline.points.Last().Direction; 
         public Vector3 exitDirectionWorld =>transform.TransformDirection(exitDirectionLocal);
@@ -23,9 +23,11 @@ namespace DefaultNamespace.World.View {
         public Vector3 exitPointWorld => transform.TransformPoint(exitPointLocal);
 
         private MeasuredSpline _measuredSpline;
+        private TileConfig _tileConfig;
+        public TileConfig TileConfig =>_tileConfig;
         
         public void Setup(TileConfig tileConfig) {
-            TileConfig = tileConfig;
+            _tileConfig = tileConfig;
             _measuredSpline = new MeasuredSpline(_spline, Density);
             GenerateTrackObjects();
         }
@@ -58,22 +60,23 @@ namespace DefaultNamespace.World.View {
             };
             Transform holderTransform = contentHolder.transform;
             
-            float coveredLength = TileConfig.initialBlankSpace;
+            float coveredLength = _tileConfig.initialBlankSpace;
             while (coveredLength < _measuredSpline.Length) {
+                float offset = 0f;
                 float freeLength = _measuredSpline.Length - coveredLength;
-                bool canFillObjWithBlankSpace = TileConfig.GetNextTrackObject(objConfig => objConfig.length <= freeLength - TileConfig.minBlankSpace, out var obj);
+                bool canFillObjWithBlankSpace = _tileConfig.GetNextTrackObject(objConfig => objConfig.length <= freeLength - _tileConfig.minBlankSpace, out var obj);
                 if (!canFillObjWithBlankSpace) {
-                    bool canFillLastObject = TileConfig.GetNextTrackObject(objConfig => objConfig.length <= freeLength, out obj);
+                    bool canFillLastObject = _tileConfig.GetNextTrackObject(objConfig => objConfig.length <= freeLength, out obj);
                     if (canFillLastObject) {
-                        PlaceObject(obj, Random.Range(coveredLength, _measuredSpline.Length - obj.length), holderTransform);
+                        PlaceObject(obj, Random.Range(coveredLength, _measuredSpline.Length - obj.length), holderTransform, ref offset);
                     }
                     break;
                 }
 
                 float extraFreeLength = freeLength - obj.length;
-                float maxBlankSpace = Mathf.Min(extraFreeLength, TileConfig.maxBlankSpace);
-                float positioningLength = coveredLength + Random.Range(TileConfig.minBlankSpace, maxBlankSpace);
-                PlaceObject(obj, positioningLength, holderTransform);
+                float maxBlankSpace = Mathf.Min(extraFreeLength, _tileConfig.maxBlankSpace);
+                float positioningLength = coveredLength + Random.Range(_tileConfig.minBlankSpace, maxBlankSpace);
+                PlaceObject(obj, positioningLength, holderTransform, ref offset);
                 coveredLength = positioningLength + obj.blockingLength;
             }
         }
@@ -87,17 +90,21 @@ namespace DefaultNamespace.World.View {
             return _measuredSpline.GetPositionAndDirection(length);
         }
 
-        private void PlaceObject(TrackObjectConfig obj, float positioningLength, Transform parent) {
+        private void PlaceObject(TrackObjectConfig obj, float positioningLength, Transform parent, ref float offset) {
             Debug.Log($"placing object : {obj.name}");
             if (obj.complex) {
+                offset += obj.offsetRange;
                 foreach (var part in obj.objectParts) {
-                    PlaceObject(part, positioningLength, parent);
+                    PlaceObject(part, positioningLength, parent, ref offset);
                     positioningLength += part.length;
                 }
                 return;
             }
 
             var (position, direction) = _measuredSpline.GetPositionAndDirection(positioningLength);
+            var offsetDirection = Quaternion.Euler(0,90,0) * direction.WithY(0);
+            offset += obj.offsetRange;
+            position += obj.offsetRange * offsetDirection;
             var newContent = Instantiate(obj.prefab, parent);
             var contentManager = newContent.GetComponent<TrackObjectManager>();
             if (contentManager != null) {
