@@ -34,16 +34,19 @@ public class MessageUI : MonoBehaviour {
 
     private Tween _textTween = null;
 
+    private bool _isShowingMessage;
+    public bool isShowingMessage => _isShowingMessage;
+
     public void DisplayMessage(string text, Sprite speaker) {
         var fullSequence = DOTween.Sequence();
         if (!_messageBoardIsShown) {
-            fullSequence.Append(ShowMessageBoard());
+            fullSequence.Append(ShowMessageBoard().OnComplete(() => _isShowingMessage=true));
         }
 
         fullSequence.Append(OpenIcon(speaker));
         fullSequence.Append(ShowMessage(text));
 
-        fullSequence.AppendInterval(2f);
+        fullSequence.AppendInterval(2f).OnComplete(() => _isShowingMessage=false);
         fullSequence.Append(CloseIcon());
         fullSequence.Join(HideMessageBoard());
     }

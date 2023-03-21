@@ -11,5 +11,9 @@ namespace Services {
         public void ShowMessage(string text, Sprite speaker) {
             _messageUI.DisplayMessage(text, speaker);
         }
+
+        public bool IsShowingMessage() {
+            return _messageUI.isShowingMessage;
+        }
     }
 }
