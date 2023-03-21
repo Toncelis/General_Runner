@@ -14,9 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TrackObjectOptions:
     ItemsList:
-    - Item: {fileID: 11400000, guid: c55ca2f3fd6c7cd458f5cebd9a634dc4, type: 2}
+    - Item:
+        ObjectConfig: {fileID: 0}
+        OverrideLength: 0
+        Length: 0
+        OverrideBlockingLength: 1
+        BlockingLength: 0
+        OverrideOffset: 0
+        OffsetVariants:
+          ItemsList: []
       Weight: 4
-    - Item: {fileID: 11400000, guid: a011c565f2ead124eae0d4ce2479c646, type: 2}
+    - Item:
+        ObjectConfig: {fileID: 0}
+        OverrideLength: 1
+        Length: 0
+        OverrideBlockingLength: 0
+        BlockingLength: 0
+        OverrideOffset: 1
+        OffsetVariants:
+          ItemsList:
+          - Item: 0
+            Weight: 0
+          - Item: 0
+            Weight: 0
+          - Item: 0
+            Weight: 0
       Weight: 1
   TilePrefab: {fileID: 6863564911483441792, guid: ea83b54649512864a90686024c9e3119,
     type: 3}

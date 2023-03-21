@@ -7,7 +7,7 @@ namespace World.Model {
     [CreateAssetMenu(menuName = "Configs/Tile", order = 1, fileName = "Tile_NAME")]
     public class TileConfig : ScriptableObject {
         [Title("Filling settings")]
-        [SerializeField] private WeightedList<TrackObjectConfig> TrackObjectOptions;
+        [SerializeField] private WeightedList<TrackObjectSettings> TrackObjectOptions;
         [PropertySpace(2)]
         [SerializeField]
         private GameObject TilePrefab;
@@ -38,8 +38,8 @@ namespace World.Model {
         public TileConfig normalizingTile => NormalizingTile;
         public bool isVisionBreaker => IsVisionBreaker;
 
-        public bool GetNextTrackObject(Predicate<TrackObjectConfig> condition, out TrackObjectConfig objConfig) {
-            return TrackObjectOptions.GetRandomObjectWithCondition(condition, out objConfig);
+        public bool GetNextTrackObject(Predicate<TrackObjectSettings> condition, out TrackObjectSettings objSettings) {
+            return TrackObjectOptions.GetRandomObjectWithCondition(condition, out objSettings);
         }
 
         public TileConfig GetNextTile() {

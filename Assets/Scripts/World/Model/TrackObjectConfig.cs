@@ -15,18 +15,18 @@ namespace World.Model {
         public GameObject prefab => Prefab;
 
         [SerializeField, ShowIf(nameof(Complex))]
-        private TrackObjectConfig[] ObjectParts;
-        public TrackObjectConfig[] objectParts => ObjectParts;
+        private TrackObjectSettings[] ObjectParts;
+        public TrackObjectSettings[] objectParts => ObjectParts;
 
-        [SerializeField] private bool CustomBlockingDistance = false;
-        [SerializeField, ShowIf(nameof(CustomBlockingDistance))]
+        [SerializeField] private bool UseBlockingDistance = false;
+        [SerializeField, ShowIf(nameof(UseBlockingDistance))]
         private float BlockingLength;
         
         [SerializeField, HideIf(nameof(Complex))]
         private float Length;
         public float length => Complex ? ObjectParts.Sum(part => part.length) : Length;
 
-        public float blockingLength => CustomBlockingDistance ? BlockingLength : Complex ? ObjectParts.Sum(part => part.blockingLength) : Length;
+        public float blockingLength => UseBlockingDistance ? BlockingLength : Complex ? ObjectParts.Sum(part => part.blockingLength) : Length;
         
         [SerializeField] private bool UseDiscreteOffsetValues = false;
         [SerializeField, ShowIf(nameof(UseDiscreteOffsetValues))]
@@ -34,6 +34,6 @@ namespace World.Model {
         [SerializeField, HideIf(nameof(UseDiscreteOffsetValues))]
         private float OffsetRange = 0;
         
-        public float offsetRange => UseDiscreteOffsetValues ? OffsetVariantsList.GetRandomObject() : Random.Range(-OffsetRange, OffsetRange);
+        public float offset => UseDiscreteOffsetValues ? OffsetVariantsList.GetRandomObject() : Random.Range(-OffsetRange, OffsetRange);
     }
 }

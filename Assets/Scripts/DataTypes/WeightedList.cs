@@ -65,7 +65,7 @@ namespace DataTypes {
         [SerializeField,HideLabel]
         private T Item;
         [HorizontalGroup]
-        [SerializeField, HideLabel, LabelWidth(20)]
+        [SerializeField, HideLabel, LabelWidth(10),SuffixLabel("weight")]
         private float Weight = 1;
 
         public T item => Item;

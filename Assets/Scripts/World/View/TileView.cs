@@ -90,11 +90,11 @@ namespace DefaultNamespace.World.View {
             return _measuredSpline.GetPositionAndDirection(length);
         }
 
-        private void PlaceObject(TrackObjectConfig obj, float positioningLength, Transform parent, ref float offset) {
-            Debug.Log($"placing object : {obj.name}");
-            if (obj.complex) {
-                offset += obj.offsetRange;
-                foreach (var part in obj.objectParts) {
+        private void PlaceObject(TrackObjectSettings obj, float positioningLength, Transform parent, ref float offset) {
+            Debug.Log($"placing object : {obj.config.name}");
+            if (obj.config.complex) {
+                offset += obj.offset;
+                foreach (var part in obj.config.objectParts) {
                     PlaceObject(part, positioningLength, parent, ref offset);
                     positioningLength += part.length;
                 }
@@ -103,9 +103,9 @@ namespace DefaultNamespace.World.View {
 
             var (position, direction) = _measuredSpline.GetPositionAndDirection(positioningLength);
             var offsetDirection = Quaternion.Euler(0,90,0) * direction.WithY(0);
-            offset += obj.offsetRange;
-            position += obj.offsetRange * offsetDirection;
-            var newContent = Instantiate(obj.prefab, parent);
+            offset += obj.offset;
+            position += obj.offset * offsetDirection;
+            var newContent = Instantiate(obj.config.prefab, parent);
             var contentManager = newContent.GetComponent<TrackObjectManager>();
             if (contentManager != null) {
                 contentManager.Setup(this, positioningLength);

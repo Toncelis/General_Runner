@@ -15,12 +15,47 @@ MonoBehaviour:
   Complex: 1
   Prefab: {fileID: 796789461678507252, guid: 46f0aff4f3f3f214db306fba086d2bb4, type: 3}
   ObjectParts:
-  - {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
-  - {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
-  - {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
-  - {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
-  - {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
-  CustomBlockingDistance: 0
+  - ObjectConfig: {fileID: 0}
+    OverrideLength: 0
+    Length: 0
+    OverrideBlockingLength: 0
+    BlockingLength: 0
+    OverrideOffset: 0
+    OffsetVariants:
+      ItemsList: []
+  - ObjectConfig: {fileID: 0}
+    OverrideLength: 0
+    Length: 0
+    OverrideBlockingLength: 0
+    BlockingLength: 0
+    OverrideOffset: 0
+    OffsetVariants:
+      ItemsList: []
+  - ObjectConfig: {fileID: 0}
+    OverrideLength: 0
+    Length: 0
+    OverrideBlockingLength: 0
+    BlockingLength: 0
+    OverrideOffset: 0
+    OffsetVariants:
+      ItemsList: []
+  - ObjectConfig: {fileID: 0}
+    OverrideLength: 0
+    Length: 0
+    OverrideBlockingLength: 0
+    BlockingLength: 0
+    OverrideOffset: 0
+    OffsetVariants:
+      ItemsList: []
+  - ObjectConfig: {fileID: 0}
+    OverrideLength: 0
+    Length: 0
+    OverrideBlockingLength: 0
+    BlockingLength: 0
+    OverrideOffset: 0
+    OffsetVariants:
+      ItemsList: []
+  UseBlockingDistance: 0
   BlockingLength: 0
   Length: 2
   UseDiscreteOffsetValues: 0
