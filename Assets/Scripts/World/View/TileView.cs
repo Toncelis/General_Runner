@@ -104,7 +104,7 @@ namespace DefaultNamespace.World.View {
             var (position, direction) = _measuredSpline.GetPositionAndDirection(positioningLength);
             var offsetDirection = Quaternion.Euler(0,90,0) * direction.WithY(0);
             offset += obj.offset;
-            position += obj.offset * offsetDirection;
+            position += obj.offset * offsetDirection + Vector3.up * obj.height;
             var newContent = Instantiate(obj.config.prefab, parent);
             var contentManager = newContent.GetComponent<TrackObjectManager>();
             if (contentManager != null) {

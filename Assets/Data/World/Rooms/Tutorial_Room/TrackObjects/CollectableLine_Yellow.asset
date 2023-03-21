@@ -15,50 +15,90 @@ MonoBehaviour:
   Complex: 1
   Prefab: {fileID: 796789461678507252, guid: 46f0aff4f3f3f214db306fba086d2bb4, type: 3}
   ObjectParts:
-  - ObjectConfig: {fileID: 0}
+  - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
     OverrideLength: 0
     Length: 0
     OverrideBlockingLength: 0
     BlockingLength: 0
-    OverrideOffset: 0
+    UseExtraHeight: 0
+    ExtraHeight: 0
+    OverrideOffset: 1
     OffsetVariants:
-      ItemsList: []
-  - ObjectConfig: {fileID: 0}
+      ItemsList:
+      - Item: -0.5
+        Weight: 1
+      - Item: 0
+        Weight: 1
+      - Item: 0.5
+        Weight: 1
+  - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
     OverrideLength: 0
     Length: 0
     OverrideBlockingLength: 0
     BlockingLength: 0
-    OverrideOffset: 0
+    UseExtraHeight: 0
+    ExtraHeight: 0
+    OverrideOffset: 1
     OffsetVariants:
-      ItemsList: []
-  - ObjectConfig: {fileID: 0}
+      ItemsList:
+      - Item: 0.5
+        Weight: 1
+      - Item: 0
+        Weight: 1
+      - Item: -0.5
+        Weight: 1
+  - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
     OverrideLength: 0
     Length: 0
     OverrideBlockingLength: 0
     BlockingLength: 0
-    OverrideOffset: 0
+    UseExtraHeight: 0
+    ExtraHeight: 0
+    OverrideOffset: 1
     OffsetVariants:
-      ItemsList: []
-  - ObjectConfig: {fileID: 0}
+      ItemsList:
+      - Item: -0.5
+        Weight: 1
+      - Item: 0
+        Weight: 1
+      - Item: 0.5
+        Weight: 1
+  - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
     OverrideLength: 0
     Length: 0
     OverrideBlockingLength: 0
     BlockingLength: 0
-    OverrideOffset: 0
+    UseExtraHeight: 0
+    ExtraHeight: 0
+    OverrideOffset: 1
     OffsetVariants:
-      ItemsList: []
-  - ObjectConfig: {fileID: 0}
+      ItemsList:
+      - Item: -0.5
+        Weight: 1
+      - Item: 0
+        Weight: 1
+      - Item: 0.5
+        Weight: 1
+  - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
     OverrideLength: 0
     Length: 0
     OverrideBlockingLength: 0
     BlockingLength: 0
-    OverrideOffset: 0
+    UseExtraHeight: 0
+    ExtraHeight: 0
+    OverrideOffset: 1
     OffsetVariants:
-      ItemsList: []
+      ItemsList:
+      - Item: 0.5
+        Weight: 1
+      - Item: 0
+        Weight: 1
+      - Item: -0.5
+        Weight: 1
   UseBlockingDistance: 0
   BlockingLength: 0
   Length: 2
   UseDiscreteOffsetValues: 0
   OffsetVariantsList:
     ItemsList: []
-  OffsetRange: 5
+  OffsetRange: 3

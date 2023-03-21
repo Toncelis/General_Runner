@@ -14,6 +14,10 @@ namespace World.Model {
         [SerializeField] private bool OverrideBlockingLength;
         [HorizontalGroup("BlockingLength"), HideLabel]
         [SerializeField, ShowIf(nameof(OverrideBlockingLength))] private float BlockingLength;
+        [HorizontalGroup("Height"), LabelWidth(100)]
+        [SerializeField] private bool UseExtraHeight;
+        [HorizontalGroup("BlockingLength"), HideLabel]
+        [SerializeField, ShowIf(nameof(UseExtraHeight))] private float ExtraHeight;
         [HorizontalGroup("Offset"), LabelWidth(100)]
         [SerializeField] private bool OverrideOffset;
         [HorizontalGroup("Offset"), HideLabel]
@@ -23,5 +27,6 @@ namespace World.Model {
         public float length => OverrideLength?Length:ObjectConfig.length;
         public float offset => OverrideOffset?OffsetVariants.GetRandomObject():ObjectConfig.offset;
         public float blockingLength => OverrideBlockingLength ? BlockingLength : config.blockingLength;
+        public float height => UseExtraHeight ? ExtraHeight : 0f;
     }
 }

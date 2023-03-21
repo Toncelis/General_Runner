@@ -15,22 +15,26 @@ MonoBehaviour:
   TrackObjectOptions:
     ItemsList:
     - Item:
-        ObjectConfig: {fileID: 0}
+        ObjectConfig: {fileID: 11400000, guid: c55ca2f3fd6c7cd458f5cebd9a634dc4, type: 2}
         OverrideLength: 0
         Length: 0
         OverrideBlockingLength: 1
         BlockingLength: 0
+        UseExtraHeight: 0
+        ExtraHeight: 0
         OverrideOffset: 0
         OffsetVariants:
           ItemsList: []
       Weight: 4
     - Item:
-        ObjectConfig: {fileID: 0}
+        ObjectConfig: {fileID: 11400000, guid: a011c565f2ead124eae0d4ce2479c646, type: 2}
         OverrideLength: 1
         Length: 0
         OverrideBlockingLength: 0
         BlockingLength: 0
-        OverrideOffset: 1
+        UseExtraHeight: 0
+        ExtraHeight: 0
+        OverrideOffset: 0
         OffsetVariants:
           ItemsList:
           - Item: 0
@@ -49,7 +53,7 @@ MonoBehaviour:
     ItemsList:
     - Item: {fileID: 11400000}
       Weight: 1
-    - Item: {fileID: 11400000, guid: e5c561a96df35c148be3d47f5dd1c66c, type: 2}
+    - Item: {fileID: 11400000, guid: ad34021fe7b215d4aa07e1eb1fae9819, type: 2}
       Weight: 2
     - Item: {fileID: 11400000, guid: de85712a6646c654c8dbe5d3d3fe5802, type: 2}
       Weight: 2
