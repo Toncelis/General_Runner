@@ -76,8 +76,7 @@ namespace DefaultNamespace.World.View {
                 float extraFreeLength = freeLength - obj.length;
                 float maxBlankSpace = Mathf.Min(extraFreeLength, _tileConfig.maxBlankSpace);
                 float positioningLength = coveredLength + Random.Range(_tileConfig.minBlankSpace, maxBlankSpace);
-                PlaceObject(obj, positioningLength, holderTransform, ref offset);
-                coveredLength = positioningLength + obj.blockingLength;
+                coveredLength = positioningLength + PlaceObject(obj, positioningLength, holderTransform, ref offset);
             }
         }
 
@@ -90,15 +89,16 @@ namespace DefaultNamespace.World.View {
             return _measuredSpline.GetPositionAndDirection(length);
         }
 
-        private void PlaceObject(TrackObjectSettings obj, float positioningLength, Transform parent, ref float offset) {
+        private float PlaceObject(TrackObjectSettings obj, float positioningLength, Transform parent, ref float offset) {
             Debug.Log($"placing object : {obj.config.name}");
             if (obj.config.complex) {
                 offset += obj.offset;
+                float blockedLength = 0;
                 foreach (var part in obj.config.objectParts) {
-                    PlaceObject(part, positioningLength, parent, ref offset);
+                    blockedLength +=PlaceObject(part, positioningLength, parent, ref offset);
                     positioningLength += part.length;
                 }
-                return;
+                return blockedLength;
             }
 
             var (position, direction) = _measuredSpline.GetPositionAndDirection(positioningLength);
@@ -113,6 +113,7 @@ namespace DefaultNamespace.World.View {
                 newContent.transform.localPosition = position;
                 newContent.transform.forward = parent.TransformDirection(direction);
             }
+            return obj.blockingLength;
         }
         
         #if UNITY_EDITOR

@@ -26,7 +26,11 @@ namespace World.Model {
         private float Length;
         public float length => Complex ? ObjectParts.Sum(part => part.length) : Length;
 
-        public float blockingLength => UseBlockingDistance ? BlockingLength : Complex ? ObjectParts.Sum(part => part.blockingLength) : Length;
+        public float blockingLength => UseBlockingDistance 
+            ? BlockingLength 
+            : Complex 
+                ? ObjectParts.Sum(part => part.blockingLength) 
+                : Length;
         
         [SerializeField] private bool UseDiscreteOffsetValues = false;
         [SerializeField, ShowIf(nameof(UseDiscreteOffsetValues))]
