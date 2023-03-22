@@ -15,4 +15,4 @@ MonoBehaviour:
   Common: 0
   Jumper: 1
   Speaker: {fileID: 21300000, guid: bd779a427ab266a49ba68628e70e3bfa, type: 3}
-  SecondTileType: {fileID: 11400000, guid: e5c561a96df35c148be3d47f5dd1c66c, type: 2}
+  SecondTileType: {fileID: 11400000, guid: e11a4e44c0282a448aa45d031ebc0db9, type: 2}

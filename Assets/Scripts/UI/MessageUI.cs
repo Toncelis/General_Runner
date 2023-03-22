@@ -52,7 +52,7 @@ public class MessageUI : MonoBehaviour {
     }
     
     private Tween ShowMessageBoard() {
-        return TotalMessagePanel.DOMoveY(120, 1).OnUpdate(UpdatePositions).OnComplete(() => _messageBoardIsShown = true);
+        return TotalMessagePanel.DOMoveY(80, 1).OnUpdate(UpdatePositions).OnComplete(() => _messageBoardIsShown = true);
     }
 
     private Tween HideMessageBoard() {

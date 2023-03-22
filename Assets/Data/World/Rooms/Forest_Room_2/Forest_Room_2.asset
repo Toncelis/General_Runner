@@ -16,5 +16,6 @@ MonoBehaviour:
   - NextRoom: {fileID: 0}
     Requirements: []
     ChangerTile: {fileID: 0}
-  RoomSprite: {fileID: 0}
+  RoomSprite: {fileID: 21300000, guid: 312c7270724b01842a875948ca4a5040, type: 3}
+  Behaviour: {fileID: 0}
   StartRoadTile: {fileID: 0}
