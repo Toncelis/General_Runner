@@ -32,11 +32,13 @@ namespace DefaultNamespace.Managers {
         private readonly Dictionary<RoomChangingRule, RoomGoal> _roomGoals = new();
         private RoomSettings _currentRoom;
         private RoomChangingRule _activeChangeRule = null;
+        private RoomSettings _nextRoom;
 
         #region Tracking room progress 
         private void Start() {
             PickupSignal.RegisterResponse(OnCollectablesSignal);
-            PrepareRoom(StartSettings.startingRoom);
+            _nextRoom = StartSettings.startingRoom;
+            PrepareRoom();
         }
 
         private void OnDisable() {
@@ -44,33 +46,33 @@ namespace DefaultNamespace.Managers {
         }
 
         private void OnCollectablesSignal(CollectableTypesEnum type) {
-            if (collectablesService.IsCollectableLocked(type)) {
+            if (collectablesService.CollectionLocked) {
                 return;
             }
 
             RunRoomFinishedCheck(type);
         }
         
-        private void PrepareRoom(RoomSettings room) {
+        private void PrepareRoom() {
             foreach (var goal in _roomGoals) {
                 goal.Value.Hide(() => _roomGoals.Remove(goal.Key));
             }
             _roomGoals.Clear();
-
-            int exitOptionsCount = room.nextRoomVariants.Count;
+            collectablesService.RefreshCollectables(_nextRoom);
+            
+            int exitOptionsCount = _nextRoom.nextRoomVariants.Count;
             float offset = (exitOptionsCount - 1) * (RoomGoalSpace + RoomGoalWidth);
             offset /= -2;
 
             for (int i = 0; i < exitOptionsCount; i++) {
                 var roomGoal = Instantiate(RoomGoalPrefab, UIPanel).GetComponent<RoomGoal>();
-                roomGoal.Setup(Vector3.right * offset, room.nextRoomVariants[i]);
+                roomGoal.Setup(Vector3.right * offset, _nextRoom.nextRoomVariants[i]);
                 offset += RoomGoalWidth + RoomGoalSpace;
-                _roomGoals.Add(room.nextRoomVariants[i], roomGoal);
+                _roomGoals.Add(_nextRoom.nextRoomVariants[i], roomGoal);
             }
 
-            _currentRoom = room;
-
-            collectablesService.RefreshCollectables(_currentRoom);
+            _currentRoom = _nextRoom;
+            _nextRoom = null;
             _currentRoom.behaviour?.Play();
         }
         
@@ -80,6 +82,7 @@ namespace DefaultNamespace.Managers {
                         collectablesService.GetCollectedAmount(requirement.collectableType) >= requirement.requiredAmount
                     )
                    ) {
+                    Debug.Log("room finished");
                     FinishRoom(finishRule);
                     return;
                 }
@@ -114,7 +117,7 @@ namespace DefaultNamespace.Managers {
                 requirementsCount++;
                 var type = requirement.collectableType;
                 var amount = requirement.requiredAmount;
-                progression += (float)collectablesService.GetCollectedAmount(type) / amount;
+                progression += Mathf.Min((float)collectablesService.GetCollectedAmount(type) / amount, 1);
             }
 
             var progress = Mathf.Min(1, progression / requirementsCount);
@@ -134,9 +137,10 @@ namespace DefaultNamespace.Managers {
         private void LoadNextRoom(RoomChangingRule rule) {
             _roomGoals.Values.ForEach(goal => goal.Hide());
             Action onRoomChange;
-            onRoomChange = () => PrepareRoom(rule.nextRoom);
+            _nextRoom = rule.nextRoom;
+            onRoomChange = PrepareRoom;
             if (_currentRoom.behaviour != null) {
-                onRoomChange += () => _currentRoom.behaviour.Stop();
+                onRoomChange += _currentRoom.behaviour.Stop;
             }
             tilesService.NormalizeAndLoadTile(rule.changerTile, onRoomChange);
             tilesService.NormalizeAndLoadTile(rule.nextRoom.startRoadTile);

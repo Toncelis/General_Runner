@@ -32,7 +32,7 @@ namespace DefaultNamespace.Managers {
             for (int i = 0; i < changingRule.requirements.Count; i++) {
                 var requirement = changingRule.requirements[i];
                 var subGoal = Instantiate(SubGoalPrefab, SubGoalsPanel);
-                subGoal.transform.localPosition = subGoal.transform.localPosition.WithY(16 - i * 20);
+                subGoal.transform.localPosition = subGoal.transform.localPosition.WithY(10 - i * 20);
                 subGoal.Setup(requirement.collectableType, requirement.requiredAmount);
             }
             

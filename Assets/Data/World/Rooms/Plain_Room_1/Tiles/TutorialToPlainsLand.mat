@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ProtoGrid_Grey
-  m_Shader: {fileID: -6465566751694194690, guid: 15ab021dfe93cd546b993ab9a506c5d4,
+  m_Name: TutorialToPlainsLand
+  m_Shader: {fileID: -6465566751694194690, guid: b50a4f51c1e10a343a505a2a5a5b508e,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -68,6 +68,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: a0d43cf85d6ba7545bcd26d0f4fcb836, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_107b127e3dc44d0a8ce622a45bf3995b_Texture_1:
+        m_Texture: {fileID: 2800000, guid: a6261322b5f983d42aa1292777b1cf6d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_bb993dd4597b45cb9a64613c9c27c39f_Texture_1:
+        m_Texture: {fileID: 2800000, guid: a6261322b5f983d42aa1292777b1cf6d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -87,6 +95,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
+    - _AlphaToMask: 0
     - _Blend: 1
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -119,12 +128,14 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorEnd: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 0}
+    - _ColorStart: {r: 0.61960787, g: 1, b: 0.5803922, a: 0}
     - _Emission: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &2242880297301403716
+--- !u!114 &148469674147385858
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

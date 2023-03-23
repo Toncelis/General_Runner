@@ -15,6 +15,7 @@ namespace Services {
         private CollectablesSignal _unlockCollectableSignal = null;
 
         private bool _lockCollection = false;
+        public bool CollectionLocked => _lockCollection;
 
         public override void SetupService(ISourceOfServiceDependencies source) {
             _pickupSignal = source.collectablePickup;
