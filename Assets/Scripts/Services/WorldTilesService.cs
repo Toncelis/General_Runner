@@ -112,5 +112,9 @@ namespace DefaultNamespace.Services {
             _generatedTiles.Remove(tileIndex);
             tile.Destroy();
         }
+
+        public void SetVisibilityDistance(float distance) {
+            _visibilityDistance = distance;
+        }
     }
 }

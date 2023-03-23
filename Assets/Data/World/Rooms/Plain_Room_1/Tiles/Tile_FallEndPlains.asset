@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TrackObjectOptions:
     ItemsList: []
-  TilePrefab: {fileID: 0}
+  TilePrefab: {fileID: 2300471354136667271, guid: cd8d55d7910e49845909326376d3c209,
+    type: 3}
   InitialBlankSpace: 5
   MinBlankSpace: 2
   MaxBlankSpace: 5

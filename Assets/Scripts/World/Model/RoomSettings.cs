@@ -12,12 +12,23 @@ public class RoomSettings : ScriptableObject {
     [SerializeField] private Sprite RoomSprite;
     [SerializeField] private RoomScriptableBehaviour Behaviour;
 
+    [PropertySpace(4), Title("Visuals")]
+    [SerializeField] private Color FogColor = Color.grey;
+    [SerializeField] private float FogMinDistance = 50;
+    [SerializeField] private float FogMaxDistance = 100;
+    
     [PropertySpace(4), Title("Generation settings")]
     [SerializeField] private TileConfig StartRoadTile;
-
+    [SerializeField] private float GenerationDistance = 99;
+    
     public List<RoomChangingRule> nextRoomVariants => NextRoomVariants;
     public Sprite roomSprite => RoomSprite;
 
+    public Color fogColor => FogColor;
+    public float fogMinDistance => FogMinDistance;
+    public float fogMaxDistance => FogMaxDistance;
+    public float generationDistance => GenerationDistance;
+    
     public TileConfig startRoadTile => StartRoadTile;
     public RoomScriptableBehaviour behaviour => Behaviour;
 }

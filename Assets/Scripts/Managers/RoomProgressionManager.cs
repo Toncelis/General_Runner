@@ -4,6 +4,7 @@ using System.Linq;
 using DataTypes;
 using DefaultNamespace.Services;
 using DefaultNamespace.Signals;
+using DG.Tweening;
 using Services;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
@@ -59,6 +60,10 @@ namespace DefaultNamespace.Managers {
             }
             _roomGoals.Clear();
             collectablesService.RefreshCollectables(_nextRoom);
+
+            DOTween.To(() => RenderSettings.fogColor, color => RenderSettings.fogColor = color, _nextRoom.fogColor, 2f);
+            DOTween.To(() => RenderSettings.fogStartDistance, f => RenderSettings.fogStartDistance = f, _nextRoom.fogMinDistance, 2f);
+            DOTween.To(() => RenderSettings.fogEndDistance, f => RenderSettings.fogEndDistance = f, _nextRoom.fogMaxDistance, 2f);
             
             int exitOptionsCount = _nextRoom.nextRoomVariants.Count;
             float offset = (exitOptionsCount - 1) * (RoomGoalSpace + RoomGoalWidth);
@@ -143,6 +148,7 @@ namespace DefaultNamespace.Managers {
                 onRoomChange += _currentRoom.behaviour.Stop;
             }
             tilesService.NormalizeAndLoadTile(rule.changerTile, onRoomChange);
+            tilesService.SetVisibilityDistance(rule.nextRoom.generationDistance);
             tilesService.NormalizeAndLoadTile(rule.nextRoom.startRoadTile);
             _activeChangeRule = null;
         }

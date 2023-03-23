@@ -19,7 +19,7 @@ MonoBehaviour:
       RequiredAmount: 20
     - CollectableType: 1
       RequiredAmount: 4
-    ChangerTile: {fileID: 0}
+    ChangerTile: {fileID: 11400000, guid: 6b1512de6a260174dbf20d4a27966efe, type: 2}
   RoomSprite: {fileID: 0}
   Behaviour: {fileID: 11400000, guid: 78192db50c8b70e48b0e7e853e079450, type: 2}
   StartRoadTile: {fileID: 11400000, guid: d084591705710d1498e34b09df1eb2ad, type: 2}

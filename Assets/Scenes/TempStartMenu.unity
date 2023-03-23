@@ -238,9 +238,9 @@ MonoBehaviour:
   MainScene: SampleScene
   RoomsArray:
   - {fileID: 11400000, guid: 56e5b5dccc9758248b53f7d9de0d4c0a, type: 2}
-  - {fileID: 11400000, guid: 56e5b5dccc9758248b53f7d9de0d4c0a, type: 2}
-  - {fileID: 11400000, guid: 56e5b5dccc9758248b53f7d9de0d4c0a, type: 2}
-  - {fileID: 11400000, guid: 56e5b5dccc9758248b53f7d9de0d4c0a, type: 2}
+  - {fileID: 11400000, guid: 6ea8227662e4b66498647d669cd7e058, type: 2}
+  - {fileID: 11400000, guid: 9f6f5b5b623ea1143b5a0b4dad127122, type: 2}
+  - {fileID: 11400000, guid: 37764c656e7f2ef4880e4c4374924694, type: 2}
 --- !u!4 &122545147
 Transform:
   m_ObjectHideFlags: 0
