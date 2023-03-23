@@ -1561,7 +1561,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2507879487572426839}
-  m_LocalRotation: {x: 0.17191942, y: 0.000000023971197, z: -0.000000004183401, w: 0.98511106}
+  m_LocalRotation: {x: 0.17191942, y: -0.000000023971193, z: 0.0000000041834007, w: 0.98511106}
   m_LocalPosition: {x: 0, y: 5, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2379,7 +2379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartSettings: {fileID: 11400000, guid: 1f99db6e356ca5441919a5fe72558675, type: 2}
-  VisibilityDistance: 150
+  VisibilityDistance: 99
   RoadHolder: {fileID: 2269653178247886576}
   MessageUI: {fileID: 8330885385456375143}
   AllCollectables:
