@@ -10,14 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f8b22e8064b478da4d82e8b6f1927f7, type: 3}
-  m_Name: CollectableLine_Yellow
+  m_Name: StrongLDiagonalLine
   m_EditorClassIdentifier: 
   Complex: 1
-  Prefab: {fileID: 796789461678507252, guid: 46f0aff4f3f3f214db306fba086d2bb4, type: 3}
+  WithVariations: 0
+  Prefabs:
+    ItemsList: []
+  Prefab: {fileID: 0}
   ObjectParts:
   - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
-    OverrideLength: 0
-    Length: 0
+    OverrideLength: 1
+    Length: 3
+    OverrideBlockingLength: 0
+    BlockingLength: 0
+    UseExtraHeight: 0
+    ExtraHeight: 0
+    OverrideOffset: 0
+    OffsetVariants:
+      ItemsList: []
+  - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
+    OverrideLength: 1
+    Length: 3
     OverrideBlockingLength: 0
     BlockingLength: 0
     UseExtraHeight: 0
@@ -25,15 +38,11 @@ MonoBehaviour:
     OverrideOffset: 1
     OffsetVariants:
       ItemsList:
-      - Item: -0.5
-        Weight: 1
-      - Item: 0
-        Weight: 1
-      - Item: 0.5
+      - Item: -0.4
         Weight: 1
   - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
-    OverrideLength: 0
-    Length: 0
+    OverrideLength: 1
+    Length: 3
     OverrideBlockingLength: 0
     BlockingLength: 0
     UseExtraHeight: 0
@@ -41,15 +50,11 @@ MonoBehaviour:
     OverrideOffset: 1
     OffsetVariants:
       ItemsList:
-      - Item: 0.5
-        Weight: 1
-      - Item: 0
-        Weight: 1
-      - Item: -0.5
+      - Item: -0.4
         Weight: 1
   - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
-    OverrideLength: 0
-    Length: 0
+    OverrideLength: 1
+    Length: 3
     OverrideBlockingLength: 0
     BlockingLength: 0
     UseExtraHeight: 0
@@ -57,15 +62,11 @@ MonoBehaviour:
     OverrideOffset: 1
     OffsetVariants:
       ItemsList:
-      - Item: -0.5
-        Weight: 1
-      - Item: 0
-        Weight: 1
-      - Item: 0.5
+      - Item: -0.4
         Weight: 1
   - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
-    OverrideLength: 0
-    Length: 0
+    OverrideLength: 1
+    Length: 3
     OverrideBlockingLength: 0
     BlockingLength: 0
     UseExtraHeight: 0
@@ -73,31 +74,11 @@ MonoBehaviour:
     OverrideOffset: 1
     OffsetVariants:
       ItemsList:
-      - Item: -0.5
-        Weight: 1
-      - Item: 0
-        Weight: 1
-      - Item: 0.5
-        Weight: 1
-  - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
-    OverrideLength: 0
-    Length: 0
-    OverrideBlockingLength: 0
-    BlockingLength: 0
-    UseExtraHeight: 0
-    ExtraHeight: 0
-    OverrideOffset: 1
-    OffsetVariants:
-      ItemsList:
-      - Item: 0.5
-        Weight: 1
-      - Item: 0
-        Weight: 1
-      - Item: -0.5
+      - Item: -0.4
         Weight: 1
   UseBlockingDistance: 0
   BlockingLength: 0
-  Length: 2
+  Length: 0
   UseDiscreteOffsetValues: 0
   OffsetVariantsList:
     ItemsList: []

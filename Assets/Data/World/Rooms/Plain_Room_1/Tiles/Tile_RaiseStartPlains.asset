@@ -13,7 +13,67 @@ MonoBehaviour:
   m_Name: Tile_RaiseStartPlains
   m_EditorClassIdentifier: 
   TrackObjectOptions:
-    ItemsList: []
+    ItemsList:
+    - Item:
+        ObjectConfig: {fileID: 11400000, guid: 16f4c8612f03663488653644aa62f5b5, type: 2}
+        OverrideLength: 0
+        Length: 0
+        OverrideBlockingLength: 0
+        BlockingLength: 0
+        UseExtraHeight: 0
+        ExtraHeight: 0
+        OverrideOffset: 0
+        OffsetVariants:
+          ItemsList: []
+      Weight: 3
+    - Item:
+        ObjectConfig: {fileID: 11400000, guid: 16f4c8612f03663488653644aa62f5b5, type: 2}
+        OverrideLength: 0
+        Length: 0
+        OverrideBlockingLength: 0
+        BlockingLength: 0
+        UseExtraHeight: 0
+        ExtraHeight: 0
+        OverrideOffset: 0
+        OffsetVariants:
+          ItemsList: []
+      Weight: 3
+    - Item:
+        ObjectConfig: {fileID: 11400000, guid: 79a3844e348cfa64f98e46a1b836c65d, type: 2}
+        OverrideLength: 0
+        Length: 0
+        OverrideBlockingLength: 0
+        BlockingLength: 0
+        UseExtraHeight: 0
+        ExtraHeight: 0
+        OverrideOffset: 0
+        OffsetVariants:
+          ItemsList: []
+      Weight: 1
+    - Item:
+        ObjectConfig: {fileID: 11400000, guid: 75346599bf5b7d54e90fecddca7b41f7, type: 2}
+        OverrideLength: 0
+        Length: 0
+        OverrideBlockingLength: 0
+        BlockingLength: 0
+        UseExtraHeight: 0
+        ExtraHeight: 0
+        OverrideOffset: 0
+        OffsetVariants:
+          ItemsList: []
+      Weight: 3
+    - Item:
+        ObjectConfig: {fileID: 11400000, guid: 5b5aba5118f9698458ebccbf6a91a81e, type: 2}
+        OverrideLength: 0
+        Length: 0
+        OverrideBlockingLength: 0
+        BlockingLength: 0
+        UseExtraHeight: 0
+        ExtraHeight: 0
+        OverrideOffset: 0
+        OffsetVariants:
+          ItemsList: []
+      Weight: 3
   TilePrefab: {fileID: 6260185469588099841, guid: e9cbcb0d7b6f667408148b6ed5474136,
     type: 3}
   InitialBlankSpace: 5

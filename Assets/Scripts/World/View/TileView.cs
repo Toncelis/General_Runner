@@ -50,7 +50,6 @@ namespace DefaultNamespace.World.View {
         }
 
         private void GenerateTrackObjects() {
-            Debug.Log($"generating track objects for {name}", this);
             GameObject contentHolder = new GameObject("ContentHolder") {
                 transform = {
                     parent = transform,
@@ -104,7 +103,7 @@ namespace DefaultNamespace.World.View {
             var (position, direction) = _measuredSpline.GetPositionAndDirection(positioningLength);
             var offsetDirection = Quaternion.Euler(0,90,0) * direction.WithY(0);
             offset += obj.offset;
-            position += obj.offset * offsetDirection + Vector3.up * obj.height;
+            position += offset * offsetDirection + Vector3.up * obj.height;
             var newContent = Instantiate(obj.config.prefab, parent);
             var contentManager = newContent.GetComponent<TrackObjectManager>();
             if (contentManager != null) {

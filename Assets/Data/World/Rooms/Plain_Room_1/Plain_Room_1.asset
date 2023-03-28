@@ -17,7 +17,7 @@ MonoBehaviour:
     Requirements:
     - CollectableType: 0
       RequiredAmount: 100
-    - CollectableType: 2
+    - CollectableType: 4
       RequiredAmount: 5
     ChangerTile: {fileID: 0}
   - NextRoom: {fileID: 11400000, guid: 9f6f5b5b623ea1143b5a0b4dad127122, type: 2}
@@ -29,4 +29,8 @@ MonoBehaviour:
     ChangerTile: {fileID: 0}
   RoomSprite: {fileID: 21300000, guid: 25c623bdfdf4ac348b2d0e3e4e2b1bbd, type: 3}
   Behaviour: {fileID: 0}
+  FogColor: {r: 0.5, g: 0.57254905, b: 0.5, a: 1}
+  FogMinDistance: 50
+  FogMaxDistance: 150
   StartRoadTile: {fileID: 11400000, guid: c5392efb076ae39439e04f95ab9660d5, type: 2}
+  GenerationDistance: 150

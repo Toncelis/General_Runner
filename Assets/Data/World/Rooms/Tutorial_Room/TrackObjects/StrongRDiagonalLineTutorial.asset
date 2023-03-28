@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f8b22e8064b478da4d82e8b6f1927f7, type: 3}
+  m_Name: StrongRDiagonalLineTutorial
+  m_EditorClassIdentifier: 
+  Complex: 1
+  Prefab: {fileID: 0}
+  ObjectParts:
+  - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
+    OverrideLength: 1
+    Length: 3
+    OverrideBlockingLength: 0
+    BlockingLength: 0
+    UseExtraHeight: 0
+    ExtraHeight: 0
+    OverrideOffset: 0
+    OffsetVariants:
+      ItemsList: []
+  - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
+    OverrideLength: 1
+    Length: 3
+    OverrideBlockingLength: 0
+    BlockingLength: 0
+    UseExtraHeight: 0
+    ExtraHeight: 0
+    OverrideOffset: 1
+    OffsetVariants:
+      ItemsList:
+      - Item: 0.4
+        Weight: 1
+  - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
+    OverrideLength: 1
+    Length: 3
+    OverrideBlockingLength: 0
+    BlockingLength: 0
+    UseExtraHeight: 0
+    ExtraHeight: 0
+    OverrideOffset: 1
+    OffsetVariants:
+      ItemsList:
+      - Item: 0.4
+        Weight: 1
+  - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
+    OverrideLength: 1
+    Length: 3
+    OverrideBlockingLength: 0
+    BlockingLength: 0
+    UseExtraHeight: 0
+    ExtraHeight: 0
+    OverrideOffset: 1
+    OffsetVariants:
+      ItemsList:
+      - Item: 0.4
+        Weight: 1
+  - ObjectConfig: {fileID: 11400000, guid: 3854bba84ea3d2142983b0d6575f3ba4, type: 2}
+    OverrideLength: 1
+    Length: 3
+    OverrideBlockingLength: 0
+    BlockingLength: 0
+    UseExtraHeight: 0
+    ExtraHeight: 0
+    OverrideOffset: 1
+    OffsetVariants:
+      ItemsList:
+      - Item: 0.4
+        Weight: 1
+  - ObjectConfig: {fileID: 11400000, guid: 54b6dbd0adcc034419633fcee468410a, type: 2}
+    OverrideLength: 1
+    Length: 3
+    OverrideBlockingLength: 0
+    BlockingLength: 0
+    UseExtraHeight: 1
+    ExtraHeight: 1.5
+    OverrideOffset: 1
+    OffsetVariants:
+      ItemsList:
+      - Item: 0.4
+        Weight: 1
+  UseBlockingDistance: 0
+  BlockingLength: 0
+  Length: 0
+  UseDiscreteOffsetValues: 0
+  OffsetVariantsList:
+    ItemsList: []
+  OffsetRange: 3

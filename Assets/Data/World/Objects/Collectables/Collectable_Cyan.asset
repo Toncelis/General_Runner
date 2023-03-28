@@ -10,21 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f8b22e8064b478da4d82e8b6f1927f7, type: 3}
-  m_Name: GreenJumper
+  m_Name: Collectable_Cyan
   m_EditorClassIdentifier: 
   Complex: 0
-  Prefab: {fileID: 2191487319359806526, guid: 9bf527062e5dea04785647ff0bdf2835, type: 3}
+  Prefab: {fileID: 796789461678507252, guid: 7d4429423603b55478ad49fe0dbdad7a, type: 3}
   ObjectParts: []
-  CustomBlockingDistance: 0
+  UseBlockingDistance: 0
   BlockingLength: 0
-  Length: 4
-  UseDiscreteOffsetValues: 1
+  Length: 2
+  UseDiscreteOffsetValues: 0
   OffsetVariantsList:
-    ItemsList:
-    - Item: 2
-      Weight: 1
-    - Item: 0
-      Weight: 2
-    - Item: -2
-      Weight: 1
-  OffsetRange: 5
+    ItemsList: []
+  OffsetRange: 0

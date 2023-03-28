@@ -164,7 +164,7 @@ PrefabInstance:
     - target: {fileID: 3429840922847508006, guid: 7fb62b4c062f5f94f818240f98212bd1,
         type: 3}
       propertyPath: m_Name
-      value: LinePlain Variant
+      value: LinePlains
       objectReference: {fileID: 0}
     - target: {fileID: 8726057853212275718, guid: 7fb62b4c062f5f94f818240f98212bd1,
         type: 3}

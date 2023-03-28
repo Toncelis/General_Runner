@@ -1315,7 +1315,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2507879486961051417}
-  m_LocalRotation: {x: 0.1719194, y: -0.000000031547863, z: 0.000000005505664, w: 0.98511106}
+  m_LocalRotation: {x: 0.17191942, y: 0.000000011547326, z: -0.0000000020152149, w: 0.98511106}
   m_LocalPosition: {x: 0, y: 5, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1482,6 +1482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2507879487457178970}
   - component: {fileID: 922767270441474980}
+  - component: {fileID: 9138817913195952044}
   m_Layer: 0
   m_Name: Char
   m_TagString: Player
@@ -1535,6 +1536,23 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.01, z: 0}
+--- !u!114 &9138817913195952044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2507879487457178969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cfc2eb161a14e0b87465418e7057031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterAnimator: {fileID: 145032098268385104}
+  CharacterTransform: {fileID: 2507879487457178970}
+  CharacterController: {fileID: 922767270441474980}
+  OnDeathSignal: {fileID: 11400000, guid: ba46473964d32ea40af86977010f6b53, type: 2}
+  StandardAction: {fileID: 11400000, guid: 85ce149e56d654b40a00fba7d9cd7f1e, type: 2}
 --- !u!1 &2507879487572426839
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,7 +1579,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2507879487572426839}
-  m_LocalRotation: {x: 0.17191942, y: -0.000000023971193, z: 0.0000000041834007, w: 0.98511106}
+  m_LocalRotation: {x: 0.17191942, y: 0.000000023971197, z: -0.000000004183401, w: 0.98511106}
   m_LocalPosition: {x: 0, y: 5, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2275,7 +2293,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4804700340802327283}
   - component: {fileID: 103948695211572465}
-  - component: {fileID: 7284058207201993412}
   - component: {fileID: 6923522777396257377}
   - component: {fileID: 9089742303328491948}
   - component: {fileID: 8311957003219359447}
@@ -2313,23 +2330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b1fdc766e8143018d0e80153d13d496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7284058207201993412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7143502670456377089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cfc2eb161a14e0b87465418e7057031, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CharacterAnimator: {fileID: 145032098268385104}
-  CharacterTransform: {fileID: 2507879487457178970}
-  CharacterController: {fileID: 922767270441474980}
-  OnDeathSignal: {fileID: 11400000, guid: ba46473964d32ea40af86977010f6b53, type: 2}
-  StandardAction: {fileID: 11400000, guid: 85ce149e56d654b40a00fba7d9cd7f1e, type: 2}
 --- !u!114 &6923522777396257377
 MonoBehaviour:
   m_ObjectHideFlags: 0

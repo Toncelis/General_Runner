@@ -9,12 +9,20 @@ namespace World.Model {
         [SerializeField]
         private bool Complex = false;
         public bool complex => Complex;
-        
-        [SerializeField, HideIf(nameof(Complex))]
-        private GameObject Prefab;
-        public GameObject prefab => Prefab;
 
-        [SerializeField, ShowIf(nameof(Complex))]
+        [SerializeField, HideIf(nameof(Complex))]
+        private bool WithVariations;
+
+        private bool useVariations => !complex && WithVariations;
+        [SerializeField, ShowIf(nameof(useVariations))]
+        private WeightedList<GameObject> Prefabs;
+
+        private bool usePrefab => !Complex && !WithVariations;
+        [SerializeField, ShowIf(nameof(usePrefab))]
+        private GameObject Prefab;
+        public GameObject prefab => useVariations?Prefabs.GetRandomObject():Prefab;
+
+        [SerializeField, ShowIf(nameof(Complex)), ListDrawerSettings(AddCopiesLastElement = true)]
         private TrackObjectSettings[] ObjectParts;
         public TrackObjectSettings[] objectParts => ObjectParts;
 

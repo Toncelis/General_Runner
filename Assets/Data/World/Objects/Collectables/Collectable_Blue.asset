@@ -10,19 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f8b22e8064b478da4d82e8b6f1927f7, type: 3}
-  m_Name: CollectablesEdgeLine_Yellow
+  m_Name: Collectable_Blue
   m_EditorClassIdentifier: 
   Complex: 0
-  Prefab: {fileID: 877430307235158812, guid: 0f55c8c5a9cf0154cab44fffcb0b7c61, type: 3}
+  Prefab: {fileID: 796789461678507252, guid: 40157aae7c12bcb42a154b6d5cb49bdd, type: 3}
   ObjectParts: []
-  CustomBlockingDistance: 0
+  UseBlockingDistance: 0
   BlockingLength: 0
-  Length: 16
-  UseDiscreteOffsetValues: 1
+  Length: 2
+  UseDiscreteOffsetValues: 0
   OffsetVariantsList:
-    ItemsList:
-    - Item: 5
-      Weight: 1
-    - Item: -5
-      Weight: 1
+    ItemsList: []
   OffsetRange: 0

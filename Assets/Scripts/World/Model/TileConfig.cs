@@ -6,7 +6,7 @@ using UnityEngine;
 namespace World.Model {
     [CreateAssetMenu(menuName = "Configs/Tile", order = 1, fileName = "Tile_NAME")]
     public class TileConfig : ScriptableObject {
-        [Title("Filling settings")]
+        [Title("Filling settings"), ListDrawerSettings(AddCopiesLastElement = true)]
         [SerializeField] private WeightedList<TrackObjectSettings> TrackObjectOptions;
         [PropertySpace(2)]
         [SerializeField]
